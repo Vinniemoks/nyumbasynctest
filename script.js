@@ -65,6 +65,73 @@ function animateOnScroll() {
     });
 }
 
+// Carousel Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.steps-carousel');
+    const container = carousel.querySelector('.steps-container');
+    const steps = carousel.querySelectorAll('.step');
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    const indicators = carousel.querySelectorAll('.indicator');
+
+    let currentIndex = 0;
+    const totalSteps = steps.length;
+
+    // Initialize carousel
+    function updateCarousel() {
+        // Update active step
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentIndex);
+        });
+
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+
+        // Move container
+        container.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    // Next step
+    function nextStep() {
+        currentIndex = (currentIndex + 1) % totalSteps;
+        updateCarousel();
+    }
+
+    // Previous step
+    function prevStep() {
+        currentIndex = (currentIndex - 1 + totalSteps) % totalSteps;
+        updateCarousel();
+    }
+
+    // Go to specific step
+    function goToStep(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextStep);
+    prevBtn.addEventListener('click', prevStep);
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => goToStep(index));
+    });
+
+    // Auto-advance (optional)
+    let autoSlide = setInterval(nextStep, 5000);
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => clearInterval(autoSlide));
+    carousel.addEventListener('mouseleave', () => {
+        autoSlide = setInterval(nextStep, 5000);
+    });
+
+    // Initialize
+    updateCarousel();
+});
+
 // Set initial state for animated elements
 document.addEventListener('DOMContentLoaded', function() {
     const elements = document.querySelectorAll('.feature-card, .step, .testimonial-card');
