@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NyumbaSync Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .signup-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: #4a90e2;
+      padding: 30px;
+      border-radius: 12px;
+      color: #fff;
+    }
+
+    .signup-container h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .input-with-button {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-with-button input {
+      flex: 1;
+    }
+
+    .validate-button {
+      padding: 10px 12px;
+      font-size: 1rem;
+      background-color: #00d2ff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .validate-button:hover {
+      background-color: #00b2cc;
+    }
+
+    .validation-details,
+    .validation-success {
+      margin-top: 10px;
+      background: #ffffff33;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .signup-button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      background-color: #00c853;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .signup-button:hover {
+      background-color: #00b342;
+    }
+
+    .signup-footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #ddd;
+    }
+
+    .signup-footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-container">
+    <h1>Sign Up for NyumbaSync</h1>
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" />
+      </div>
+
+      <div class="form-group">
+        <label for="middleName">Middle Name</label>
+        <input type="text" id="middleName" name="middleName" placeholder="Enter your middle name (optional)" />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group">
+        <label for="idNumber">ID Number *</label>
+        <input type="text" id="idNumber" name="idNumber" required placeholder="Enter your ID number" />
+      </div>
+
+      <div class="form-group">
+        <label for="agentLandlordCode">Agent/Landlord Code *</label>
+        <div class="input-with-button">
+          <input type="text" id="agentLandlordCode" name="agentLandlordCode" required placeholder="Enter agent/landlord code" />
+          <button type="button" class="validate-button" onclick="validateAgentLandlordCode()">Validate</button>
+        </div>
+        <div id="landlordDetails" class="validation-details" style="display: none;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="houseNumber">House Number *</label>
+        <div class="input-with-button">
+          <input type="text" id="houseNumber" name="houseNumber" required placeholder="Enter house number" />
+          <button type="button" class="validate-button" onclick="validateHouseNumber()">Validate</button>
+        </div>
+        <div id="houseValidationMessage" class="validation-success" style="display: none;">
+          House number validated successfully!
+        </div>
+      </div>
+
+      <button type="submit" class="signup-button">Sign Up</button>
+    </form>
+
+    <div class="signup-footer">
+      <p>Already have an account? <a href="/login">Log In</a></p>
+    </div>
+  </div>
+
+  <script>
+    const formData = {
+      landlordDetails: null,
+      agentLandlordCodeValid: false,
+      houseNumberValid: false,
+    };
+
+    function validateAgentLandlordCode() {
+      const code = document.getElementById("agentLandlordCode").value;
+      console.log("Validating code:", code);
+
+      setTimeout(() => {
+        // Simulate API validation
+        formData.landlordDetails = {
+          name: 'John Doe',
+          contact: '123-456-789',
+          propertyName: 'Sunset Apartments'
+        };
+        formData.agentLandlordCodeValid = true;
+
+        const detailBox = document.getElementById("landlordDetails");
+        detailBox.innerHTML = `
+          <p>Landlord: ${formData.landlordDetails.name}</p>
+          <p>Contact: ${formData.landlordDetails.contact}</p>
+          <p>Property: ${formData.landlordDetails.propertyName}</p>
+        `;
+        detailBox.style.display = "block";
+      }, 1000);
+    }
+
+    function validateHouseNumber() {
+      const house = document.getElementById("houseNumber").value;
+      console.log("Validating house number:", house);
+
+      setTimeout(() => {
+        formData.houseNumberValid = true;
+        document.getElementById("houseValidationMessage").style.display = "block";
+      }, 1000);
+    }
+
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      if (!formData.agentLandlordCodeValid || !formData.houseNumberValid) {
+        alert("Please validate both the Agent/Landlord code and House Number");
+        return;
+      }
+
+      const collectedData = {
+        firstName: this.firstName.value,
+        middleName: this.middleName.value,
+        lastName: this.lastName.value,
+        email: this.email.value,
+        idNumber: this.idNumber.value,
+        agentLandlordCode: this.agentLandlordCode.value,
+        houseNumber: this.houseNumber.value,
+        landlordDetails: formData.landlordDetails
+      };
+
+      console.log("Signup attempt with:", collectedData);
+      alert("Signup successful! (See console for details)");
+    });
+  </script>
+
+</body>
+</html>
