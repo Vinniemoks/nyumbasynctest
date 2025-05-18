@@ -50,3 +50,8 @@
 .signup-form .link:hover {
     color: var(--primary-color);
 }
+
+.logo img {
+    height: 80px;
+    margin-right: 0px;
+}
