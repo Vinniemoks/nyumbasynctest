@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Signup | NyumbaSync</title>
-  <link rel="stylesheet" href="signup.css" />
+  <meta charset="UTF-8">
+  <title>Signup - NyumbaSync</title>
+  <link rel="stylesheet" href="signup.css">
 </head>
 <body>
   <div class="signup-container">
-    <div class="signup-box">
-      <div class="text-center">
-        <img src="images/logo.png" alt="NyumbaSync Logo" class="logo" />
-        <h2>Create Account</h2>
-        <p>Join NyumbaSync to manage your properties</p>
+    <h2>Welcome to NyumbaSync</h2>
+    <p>Please choose your role to proceed:</p>
+
+    <form id="roleSelectionForm" class="signup-form">
+      <div class="form-group">
+        <label>
+          <input type="radio" name="userRole" value="tenant" required>
+          I'm a Tenant
+        </label>
+        <br>
+        <label>
+          <input type="radio" name="userRole" value="landlord_or_agent">
+          I'm a Landlord or Agent
+        </label>
       </div>
 
-      <form id="signupForm">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" />
-        </div>
+      <button type="submit" class="btn btn-primary">Continue</button>
+    </form>
+  </div>
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required placeholder="Enter your email" />
-        </div
+  <script>
+    document.getElementById('roleSelectionForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const selectedRole = document.querySelector('input[name="userRole"]:checked');
+
+      if (!selectedRole) {
+        alert('Please select a role to continue.');
+        return;
+      }
+
+      const role = selectedRole.value;
+
+      // Redirect or dynamically load signup form
+      if (role === 'tenant') {
+        window.location.href = '/signup-tenant.html';
+      } else if (role === 'landlord_or_agent') {
+        window.location.href = '/signup-landlord-agent.html';
+      }
+    });
+  </script>
+</body>
+</html>
