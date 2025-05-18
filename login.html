@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NyumbaSync Login</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Welcome to NyumbaSync</h1>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Enter your password" />
+        </div>
+        <button type="submit" class="login-button">Log In</button>
+      </form>
+      <div class="login-footer">
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        <a href="forgot-password.html">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Simple console output for demonstration
+      console.log('Login attempt with:', { email, password });
+
+      // You can redirect or show messages here
+      alert('Login submitted!');
+    });
+  </script>
+</body>
+</html>
