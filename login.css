@@ -2,14 +2,14 @@
     max-width: 400px;
     margin: 120px auto;
     padding: 40px;
-    background-color: var(--white-color);
+    background-color: #3a7bd5;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
 .login-container h2 {
-    color: var(--primary-color);
+    color: #00d2ff;
     margin-bottom: 30px;
 }
 
@@ -46,5 +46,5 @@
 }
 
 .login-form .link:hover {
-    color: var(--primary-color);
+    color: #00d2ff;
 }
