@@ -1,15 +1,16 @@
 .signup-container {
-    max-width: 300px;
-    margin: 80px auto;
-    padding: 20px;
-    background-color: #3a7bd5;
+    max-width: 900px;
+    margin: 200px auto;
+    padding: 100px;
+    background-color: #1a0bf0;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(10, 10, 10, 10.05);
+    box-shadow: 0 10px 30px rgba(216, 165, 165, 0.05);
     text-align: center;
 }
 
 .signup-container h2 {
     color: var(--primary-color);
+    font-size: medium;
     margin-bottom: 30px;
 }
 
