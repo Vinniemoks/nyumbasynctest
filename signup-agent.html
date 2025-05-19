@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .signup-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h2 {
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        select[multiple] {
+            height: auto;
+            min-height: 100px;
+        }
+        
+        small {
+            display: block;
+            color: #666;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .signup-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .signup-button:hover {
+            background-color: #45a049;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-box">
+            <h1>Agent Registration</h1>
+            <form id="agentSignupForm">
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label for="firstName" class="required-field">First Name</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="required-field">Last Name</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="required-field">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber" class="required-field">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idNumber" class="required-field">ID Number</label>
+                        <input
+                            type="text"
+                            id="idNumber"
+                            name="idNumber"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="required-field">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="required-field">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Professional Information</h2>
+                    <div class="form-group">
+                        <label for="agencyName" class="required-field">Agency Name</label>
+                        <input
+                            type="text"
+                            id="agencyName"
+                            name="agencyName"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="licenseNumber" class="required-field">License Number</label>
+                        <input
+                            type="text"
+                            id="licenseNumber"
+                            name="licenseNumber"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agencyAddress" class="required-field">Agency Address</label>
+                        <input
+                            type="text"
+                            id="agencyAddress"
+                            name="agencyAddress"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yearsOfExperience" class="required-field">Years of Experience</label>
+                        <input
+                            type="number"
+                            id="yearsOfExperience"
+                            name="yearsOfExperience"
+                            required
+                            min="0"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialization" class="required-field">Specialization</label>
+                        <select
+                            id="specialization"
+                            name="specialization"
+                            multiple
+                            required
+                        >
+                            <option value="residential">Residential Properties</option>
+                            <option value="commercial">Commercial Properties</option>
+                            <option value="industrial">Industrial Properties</option>
+                            <option value="land">Land</option>
+                            <option value="property-management">Property Management</option>
+                        </select>
+                        <small>Hold Ctrl/Cmd to select multiple options</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="signup-button">
+                    Register as Agent
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('agentSignupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+                idNumber: document.getElementById('idNumber').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                agencyName: document.getElementById('agencyName').value,
+                licenseNumber: document.getElementById('licenseNumber').value,
+                agencyAddress: document.getElementById('agencyAddress').value,
+                yearsOfExperience: document.getElementById('yearsOfExperience').value,
+                specialization: Array.from(document.getElementById('specialization').selectedOptions)
+                    .map(option => option.value)
+            };
+            
+            // Validate passwords match
+            if (formData.password !== formData.confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Basic validation for required fields
+            for (const key in formData) {
+                if (formData[key] === '' && key !== 'specialization') {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+            }
+            
+            // Specialization must have at least one selection
+            if (formData.specialization.length === 0) {
+                alert('Please select at least one specialization');
+                return;
+            }
+            
+            // Form is valid - proceed with submission
+            console.log('Agent signup attempt with:', formData);
+            alert('Registration successful! (This is a demo)');
+            // Here you would typically send the data to your server
+        });
+    </script>
+</body>
+</html>
