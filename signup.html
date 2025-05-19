@@ -24,7 +24,7 @@
       </div>
 
      <div class="form-group">
-  <label>I am a: *</label>
+  <label>I am a: </label>
   <div class="radio-group">
     <label>
       <input type="radio" name="userRole" value="landlord" required />
@@ -59,8 +59,12 @@
 
       if (role === 'tenant') {
         window.location.href = 'signup-tenant.html';
-      } else if (role === 'landlord_or_agent') {
-        window.location.href = 'signup-landlord-agent.html';
+      } 
+      else if (role === 'landlord') {
+        window.location.href = 'signup-landlord.html';
+      }
+        else if (role === 'agent') {
+        window.location.href = 'signup-agent.html';
       }
     });
   </script>
