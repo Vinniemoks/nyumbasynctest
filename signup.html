@@ -23,12 +23,28 @@
         </label>
       </div>
 
-      <div class="form-group">
-        <label>
-          <input type="radio" name="userRole" value="landlord_or_agent">
-          I'm a Landlord or Agent
-        </label>
-      </div>
+     <div class="form-group">
+  <label>I am a: *</label>
+  <div class="radio-group">
+    <label>
+      <input type="radio" name="userRole" value="landlord" required />
+      Landlord
+    </label>
+    <label>
+      <input type="radio" name="userRole" value="agent" required />
+      Agent
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="agentLandlordCode">Agent/Landlord Code *</label>
+  <div class="input-with-button">
+    <input type="text" id="agentLandlordCode" name="agentLandlordCode" required placeholder="Enter agent/landlord code" />
+    <button type="button" class="validate-button" onclick="validateAgentLandlordCode()">Validate</button>
+  </div>
+  <div id="landlordDetails" class="validation-details" style="display: none;"></div>
+</div>
 
       <button type="submit" class="btn btn-primary">Continue</button>
 
