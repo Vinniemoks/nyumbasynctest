@@ -5,12 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NyumbaSync Login</title>
   <link rel="stylesheet" href="login.css" />
+  <style>
+    /* Additional styles for the login options */
+    .login-options {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .login-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .login-tab.active {
+      border-bottom-color: #3498db;
+      font-weight: bold;
+      color: #3498db;
+    }
+    .login-content {
+      display: none;
+    }
+    .login-content.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
       <h1>Welcome to NyumbaSync</h1>
-      <form id="loginForm">
+      
+      <div class="login-options">
+        <div class="login-tab active" data-target="emailLogin">Email Login</div>
+        <div class="login-tab" data-target="phoneLogin">Phone Login</div>
+      </div>
+      
+      <form id="emailLoginForm" class="login-content active">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required placeholder="Enter your email" />
@@ -21,6 +51,19 @@
         </div>
         <button type="submit" class="login-button">Log In</button>
       </form>
+      
+      <form id="phoneLoginForm" class="login-content">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="phonePassword" name="password" required placeholder="Enter your password" />
+        </div>
+        <button type="submit" class="login-button">Log In</button>
+      </form>
+      
       <div class="login-footer">
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
         <a href="forgot-password.html">Forgot Password?</a>
@@ -29,16 +72,35 @@
   </div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.login-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        document.querySelectorAll('.login-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(tab.dataset.target + 'Form').classList.add('active');
+      });
+    });
+
+    // Form submission handlers
+    document.getElementById('emailLoginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+      console.log('Email login attempt:', { email, password });
+      // Add your email login logic here
+    });
 
-      // Simple console output for demonstration
-      console.log('Login attempt with:', { email, password });
-
-      // You can redirect or show messages here
-      alert('Login submitted!');
+    document.getElementById('phoneLoginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value;
+      const password = document.getElementById('phonePassword').value;
+      console.log('Phone login attempt:', { phone, password });
+      // Add your phone login logic here
     });
   </script>
 </body>

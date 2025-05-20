@@ -48,3 +48,26 @@
 .login-form .link:hover {
     color: #00d2ff;
 }
+
+   /* Additional styles for the login options */
+    .login-options {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .login-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .login-tab.active {
+      border-bottom-color: #3498db;
+      font-weight: bold;
+      color: #3498db;
+    }
+    .login-content {
+      display: none;
+    }
+    .login-content.active {
+      display: block;
+    }
