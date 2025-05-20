@@ -79,3 +79,19 @@
   gap: 8px;
   cursor: pointer;
 }
+
+.login-prompt {
+  margin-top: 15px;
+  text-align: center;
+  color: #fdfafa; 
+}
+
+.login-prompt .link {
+  color: #3498db; 
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-prompt .link:hover {
+  text-decoration: underline;
+}
