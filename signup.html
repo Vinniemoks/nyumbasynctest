@@ -13,56 +13,51 @@
       <img src="images/logo.png" alt="NyumbaSync Logo" />
     </div>
 
-<h2 class="role-heading">Select Your Role</h2>
-<form id="roleSelectionForm" class="signup-form">
-  <div class="form-group">
-    <label>I am a:</label>
-    <div class="radio-group">
-      <label>
-        <input type="radio" name="userRole" value="tenant" required>
-        Tenant
-      </label>
-      <label>
-        <input type="radio" name="userRole" value="landlord" required>
-        Landlord
-      </label>
-      <label>
-        <input type="radio" name="userRole" value="agent" required>
-        Agent
-      </label>
-    </div>
-  </div>
-</form>
-
+    <h2 class="role-heading">Select Your Role</h2>
+    <form id="roleSelectionForm" class="signup-form">
+      <div class="form-group">
+        <label>I am a:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="userRole" value="tenant" required>
+            Tenant
+          </label>
+          <label>
+            <input type="radio" name="userRole" value="landlord" required>
+            Landlord
+          </label>
+          <label>
+            <input type="radio" name="userRole" value="agent" required>
+            Agent
+          </label>
+        </div>
+      </div>
 
       <button type="submit" class="btn btn-primary">Continue</button>
-
       <a href="login.html" class="link">Already have an account? Log in</a>
     </form>
   </div>
 
   <script>
-    document.getElementById('roleSelectionForm').addEventListener('submit', function (e) {
+    document.getElementById('roleSelectionForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
+      
       const selectedRole = document.querySelector('input[name="userRole"]:checked');
-
+      
       if (!selectedRole) {
         alert('Please select a role to continue.');
         return;
       }
 
+      // Redirect based on selected role
       const role = selectedRole.value;
-
-      if (role === 'tenant') {
-        window.location.href = 'signup-tenant.html';
-      } 
-      else if (role === 'landlord') {
-        window.location.href = 'signup-landlord.html';
-      }
-        else if (role === 'agent') {
-        window.location.href = 'signup-agent.html';
-      }
+      const redirectUrls = {
+        'tenant': 'signup-tenant.html',
+        'landlord': 'signup-landlord.html', 
+        'agent': 'signup-agent.html'
+      };
+      
+      window.location.href = redirectUrls[role];
     });
   </script>
 
