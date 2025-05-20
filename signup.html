@@ -13,30 +13,26 @@
       <img src="images/logo.png" alt="NyumbaSync Logo" />
     </div>
 
-    <h2>Select Your Role</h2>
-    <form id="roleSelectionForm" class="signup-form">
-      <div class="form-group">
-        <label>
-          <input type="radio" name="userRole" value="tenant" required>
-          I'm a Tenant
-        </label>
-      </div>
-
-     <div class="form-group">
-
-  <label>I am a: </label>
-  <div class="radio-group">    
-    </label>
-    <label>
-      <input type="radio" name="userRole" value="landlord" required />
-      Landlord
-    </label>
-    <label>
-      <input type="radio" name="userRole" value="agent" required />
-      Agent
-    </label>
+<h2 class="role-heading">Select Your Role</h2>
+<form id="roleSelectionForm" class="signup-form">
+  <div class="form-group">
+    <label>I am a:</label>
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="userRole" value="tenant" required>
+        Tenant
+      </label>
+      <label>
+        <input type="radio" name="userRole" value="landlord" required>
+        Landlord
+      </label>
+      <label>
+        <input type="radio" name="userRole" value="agent" required>
+        Agent
+      </label>
+    </div>
   </div>
-</div>
+</form>
 
 
       <button type="submit" class="btn btn-primary">Continue</button>
