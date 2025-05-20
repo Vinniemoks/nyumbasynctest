@@ -1,10 +1,10 @@
 .signup-container {
-    max-width: 900px;
+    max-width: 500px;
     margin: 200px auto;
     padding: 100px;
-    background-color: #1a0bf0;
+    background-color: #00d2ff;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(216, 165, 165, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
@@ -43,9 +43,9 @@
 .signup-form .link {
     display: block;
     margin-top: 15px;
-    color: #00d2ff;
+    color: #2c3e50;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 1.5rem;
 }
 
 .signup-form .link:hover {
@@ -56,3 +56,14 @@
     height: 80px;
     margin-right: 0px;
 }
+
+.role-heading {
+  color: #2c3e50;            
+  font-size: 1.5rem;         
+  margin-bottom: 1rem;       
+  font-weight: 600;          
+  text-align: center;        
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+}
+
