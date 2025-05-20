@@ -33,21 +33,24 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Continue</button>
+      <button type="button" id="continueBtn" class="btn btn-primary">Continue</button>
       <a href="login.html" class="link">Already have an account? Log in</a>
     </form>
   </div>
 
   <script>
-    document.getElementById('roleSelectionForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
+    document.getElementById('continueBtn').addEventListener('click', function() {
       const selectedRole = document.querySelector('input[name="userRole"]:checked');
       
       if (!selectedRole) {
         alert('Please select a role to continue.');
         return;
       }
+
+      // Show loading state
+      const btn = document.getElementById('continueBtn');
+      btn.textContent = 'Redirecting...';
+      btn.disabled = true;
 
       // Redirect based on selected role
       const role = selectedRole.value;
@@ -57,7 +60,10 @@
         'agent': 'signup-agent.html'
       };
       
-      window.location.href = redirectUrls[role];
+      // Small delay for UX purposes (can be removed)
+      setTimeout(() => {
+        window.location.href = redirectUrls[role];
+      }, 500);
     });
   </script>
 
