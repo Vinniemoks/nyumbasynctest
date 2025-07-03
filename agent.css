@@ -1,0 +1,124 @@
+/* Import or define color variables from style.css */
+:root {
+    --primary-color: #3a7bd5;
+    --secondary-color: #00d2ff;
+    --dark-color: #2a2a2a;
+    --light-color: #f8f9fa;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --gray-color: #6c757d;
+    --white-color: #ffffff;
+    --black-color: #000000;
+}
+
+/* Existing styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    background: linear-gradient(135deg, rgba(58, 123, 213, 0.05) 0%, rgba(0, 210, 255, 0.02) 100%); /* Subtle blue gradient */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+ .signup-container {
+ width: 100%;
+ max-width: 800px;
+ padding: 20px;
+ }
+ 
+ .signup-box {
+ background-color: greenyellow; 
+ border-radius: 8px;
+ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Consistent shadow */
+ padding: 30px;
+ }
+ 
+ h1 {
+ text-align: center;
+ color: var(--primary-color); /* Use primary color */
+ margin-bottom: 30px;
+ }
+ 
+ .form-section {
+ margin-bottom: 30px;
+ padding-bottom: 20px;
+ border-bottom: 1px solid #eee; /* Can keep subtle grey border */
+ }
+ 
+ h2 {
+ color: var(--dark-color); /* Use dark color for headings */
+ margin-bottom: 20px;
+ font-size: 1.5em; /* Slightly larger size */
+ }
+ 
+ .form-group {
+ margin-bottom: 20px; /* Slightly more space */
+ }
+ 
+ label {
+ display: block;
+ margin-bottom: 8px; /* More space */
+ font-weight: 600; /* Consistent weight */
+ color: var(--dark-color); /* Use dark color */
+ }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px; /* More padding */
+            border: 1px solid #ccc; /* Slightly darker border */
+            border-radius: 5px; /* Consistent border radius */
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease; /* Add transition */
+        }
+ input[type="text"]:focus,
+ input[type="email"]:focus,
+ input[type="tel"]:focus,
+ input[type="password"]:focus,
+ input[type="number"]:focus,
+ select:focus {
+ border-color: var(--primary-color); /* Primary color on focus */
+ outline: none;
+ }
+ 
+        select[multiple] {
+            height: auto;
+            min-height: 100px;
+        }
+ 
+        small {
+            display: block;
+            color: #666;
+            font-size: 0.9em; /* Slightly larger */
+            margin-top: 5px;
+        }
+ 
+        .signup-button {
+            background: purple;
+            color: var(--white-color);
+            border: none; /* No border */
+            padding: 12px 25px; /* More padding */
+            font-size: 1rem; /* Consistent font size */
+            border-radius: 5px; /* Consistent border radius */
+            cursor: pointer; /* Cursor pointer */
+            width: 100%; /* Full width */
+            display: block; /* Block element */
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+        .signup-button:hover {
+            transform: translateY(-3px); /* Lift on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+        .required-field::after {
+            content: " *";
+            color: red;
+        }

@@ -1,107 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NyumbaSync Login</title>
-  <link rel="stylesheet" href="login.css" />
-  <style>
-    /* Additional styles for the login options */
-    .login-options {
-      display: flex;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #eee;
-    }
-    .login-tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-    }
-    .login-tab.active {
-      border-bottom-color: #3498db;
-      font-weight: bold;
-      color: #3498db;
-    }
-    .login-content {
-      display: none;
-    }
-    .login-content.active {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-box">
-      <h1>Welcome to NyumbaSync</h1>
+  <div class="login-wrapper">
+    <div class="login-card">
       
-      <div class="login-options">
-        <div class="login-tab active" data-target="emailLogin">Email Login</div>
-        <div class="login-tab" data-target="phoneLogin">Phone Login</div>
+      <div class="login-header">
+        <h2>Welcome back!</h2>
+        <p>Please enter your credentials to login</p>
       </div>
-      
-      <form id="emailLoginForm" class="login-content active">
+
+      <form id="loginForm">
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+          <label for="identifier">Email or Phone</label>
+          <div class="input-icon">
+            <i class="fas fa-user"></i>
+            <input type="text" id="identifier" name="identifier" required placeholder="example@email.com" />
+          </div>
         </div>
+        
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required placeholder="Enter your password" />
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" name="password" required placeholder="••••••••" />
+            <i class="fas fa-eye toggle-password"></i>
+          </div>
         </div>
-        <button type="submit" class="login-button">Log In</button>
+        
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="/forgot-password.html" class="forgot-password">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="login-button">
+          <span>Sign In</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div class="divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-login">
+          <button type="button" class="social-button google">
+            <i class="fab fa-google"></i>
+          </button>
+          <button type="button" class="social-button facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button type="button" class="social-button apple">
+            <i class="fab fa-apple"></i>
+          </button>
+        </div>
+
+        <div class="signup-link">
+          Don't have an account? <a href="/signup.html">Sign up</a>
+        </div>
       </form>
-      
-      <form id="phoneLoginForm" class="login-content">
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="phonePassword" name="password" required placeholder="Enter your password" />
-        </div>
-        <button type="submit" class="login-button">Log In</button>
-      </form>
-      
-      <div class="login-footer">
-        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-        <a href="forgot-password.html">Forgot Password?</a>
-      </div>
     </div>
   </div>
 
   <script>
-    // Tab switching functionality
-    const tabs = document.querySelectorAll('.login-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        document.querySelectorAll('.login-content').forEach(content => {
-          content.classList.remove('active');
-        });
-        document.getElementById(tab.dataset.target + 'Form').classList.add('active');
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('identifier').value;
+      const password = document.getElementById('password').value;
+
+      if (!identifier || !password) {
+        showError('Please enter both email/phone and password.');
+        return;
+      }
+
+      console.log('Login attempt with:', { identifier, password });
+      // Add your API call here
+    });
+
+    // Password visibility toggle
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+      icon.addEventListener('click', function() {
+        const passwordInput = this.previousElementSibling;
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
       });
     });
 
-    // Form submission handlers
-    document.getElementById('emailLoginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      console.log('Email login attempt:', { email, password });
-      // Add your email login logic here
-    });
-
-    document.getElementById('phoneLoginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const phone = document.getElementById('phone').value;
-      const password = document.getElementById('phonePassword').value;
-      console.log('Phone login attempt:', { phone, password });
-      // Add your phone login logic here
-    });
+    function showError(message) {
+      const errorElement = document.createElement('div');
+      errorElement.className = 'error-message';
+      errorElement.textContent = message;
+      
+      const form = document.getElementById('loginForm');
+      const existingError = form.querySelector('.error-message');
+      if (existingError) form.removeChild(existingError);
+      
+      form.insertBefore(errorElement, form.firstChild);
+      setTimeout(() => errorElement.classList.add('show'), 10);
+    }
   </script>
 </body>
 </html>

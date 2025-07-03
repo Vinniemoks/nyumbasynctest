@@ -1,8 +1,11 @@
+body {
+    background: linear-gradient(135deg, rgba(58, 123, 213, 0.05) 0%, rgba(0, 210, 255, 0.02) 100%); /* Very light blue gradient */
+}
+.signup-body,
 .signup-container {
     max-width: 500px;
-    margin: 200px auto;
-    padding: 100px;
-    background-color: #3a7bd5;
+    margin: 100px auto;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
@@ -10,7 +13,7 @@
 
 .signup-container h2 {
     color: var(--primary-color);
-    font-size: medium;
+    font-size: 2rem;
     margin-bottom: 30px;
 }
 
@@ -30,12 +33,14 @@
 }
 
 .signup-form input:focus,
-.signup-form select:focus {
-    border-color: #00d2ff;
+.signup-form select:focus,
+.signup-form input[type="radio"]:checked + label::before {
+    border-color: var(--primary-color);
     outline: none;
 }
 
 .signup-form .btn-primary {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     width: 100%;
     margin-top: 15px;
 }
@@ -43,13 +48,13 @@
 .signup-form .link {
     display: block;
     margin-top: 15px;
-    color: #2c3e50;
+    color: var(--gray-color);
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 0.95rem;
 }
 
 .signup-form .link:hover {
-    color: #00d2ff;
+    color: var(--secondary-color);
 }
 
 .logo img {
@@ -58,12 +63,12 @@
 }
 
 .role-heading {
-  color: #2c3e50;            
-  font-size: 1.5rem;         
-  margin-bottom: 1rem;       
-  font-weight: 600;          
-  text-align: center;        
-  text-transform: uppercase; 
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
   letter-spacing: 1px;
 }
 
@@ -78,21 +83,31 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  color: var(--dark-color);
+}
+
+.radio-group input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.radio-group label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gray-color);
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  transition: all 0.2s ease;
+}
+
+.radio-group input[type="radio"]:checked + label::before {
+  background-color: var(--success-color); /* Use green for selected radio */
+  border-color: var(--success-color);
 }
 
 .login-prompt {
   margin-top: 15px;
-  text-align: center;
-  color: #fdfafa; 
-  font-weight: 200;
-}
-
-.login-prompt .link {
-  color: #3498db; 
-  text-decoration: none;
-  font-weight: 200;
-}
-
-.login-prompt .link:hover {
-  text-decoration: underline;
+  text-align: center; 
 }
