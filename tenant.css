@@ -8,7 +8,7 @@ body {
 .signup-container {
   max-width: 500px;
   margin: 40px auto;
-  background-color: #4a90e2;
+  background-color: greenyellow;
   padding: 30px;
   border-radius: 12px;
   color: #fff;
@@ -17,10 +17,13 @@ body {
 .signup-container h1 {
   text-align: center;
   margin-bottom: 25px;
+  color: blue;
 }
 
 .form-group {
   margin-bottom: 15px;
+  color: black;
+  font-weight: bold;
 }
 
 .form-group label {
@@ -72,7 +75,7 @@ body {
   width: 100%;
   padding: 12px;
   font-size: 1rem;
-  background-color: #00c853;
+  background-color: purple;
   border: none;
   border-radius: 5px;
   margin-top: 15px;
@@ -80,7 +83,7 @@ body {
 }
 
 .signup-button:hover {
-  background-color: #00b342;
+  background-color: purple;
 }
 
 .signup-footer {
