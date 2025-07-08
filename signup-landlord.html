@@ -5,270 +5,507 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landlord Registration</title>
     <link rel="stylesheet" href="landlord.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+    
     <div class="signup-container">
         <div class="signup-box">
-            <h1>Landlord Registration</h1>
+            <div class="header-section">
+                <div class="logo-placeholder">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="12" fill="url(#gradient1)"/>
+                        <path d="M12 16L20 10L28 16V30C28 31.1 27.1 32 26 32H14C12.9 32 12 31.1 12 30V16Z" fill="white"/>
+                        <path d="M18 32V22H22V32" fill="url(#gradient1)"/>
+                        <defs>
+                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea"/>
+                                <stop offset="100%" style="stop-color:#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1>Landlord Registration</h1>
+                <p>Join our platform to manage your properties efficiently</p>
+            </div>
+            
             <form id="landlordSignupForm">
-                <div class="form-section">
-                    <h2>Personal Information</h2>
-                    <div class="form-group">
-                        <label for="firstName" class="required-field">First Name</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            required
-                        />
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="form-section active" id="section-personal">
+                    <div class="section-header">
+                        <h2>
+                            <span class="section-icon">👤</span>
+                            Personal Information
+                        </h2>
+                        <span class="section-badge">Step 1 of 2</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="required-field">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required />
+                            <span class="form-error" id="firstName-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="required-field">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required />
+                            <span class="form-error" id="lastName-error"></span>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName" class="required-field">Last Name</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            required
-                        />
+                        <label for="email" class="required-field">Email Address</label>
+                        <input type="email" id="email" name="email" required />
+                        <span class="form-error" id="email-error"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email" class="required-field">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phoneNumber" class="required-field">Phone Number</label>
-                        <input
-                            type="tel"
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="idNumber" class="required-field">ID Number</label>
-                        <input
-                            type="text"
-                            id="idNumber"
-                            name="idNumber"
-                            required
-                        />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phoneNumber" class="required-field">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required />
+                            <span class="form-error" id="phoneNumber-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="idNumber" class="required-field">ID Number</label>
+                            <input type="text" id="idNumber" name="idNumber" required />
+                            <span class="form-error" id="idNumber-error"></span>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="businessRegistrationNumber">Business Registration Number (Optional)</label>
-                        <input
-                            type="text"
-                            id="businessRegistrationNumber"
-                            name="businessRegistrationNumber"
-                        />
+                        <input type="text" id="businessRegistrationNumber" name="businessRegistrationNumber" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="password" class="required-field">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmPassword" class="required-field">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div class="form-section" id="propertySection">
-                    <h2>Property Information</h2>
-                    <div class="property-section" id="property-0">
-                        <h3>Property 1</h3>
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="propertyName-0" class="required-field">Property Name</label>
-                            <input
-                                type="text"
-                                id="propertyName-0"
-                                name="propertyName"
-                                required
-                            />
+                            <label for="password" class="required-field">Password</label>
+                            <input type="password" id="password" name="password" required />
+                            <div class="password-strength" id="passwordStrength"></div>
+                            <span class="form-error" id="password-error"></span>
                         </div>
-
                         <div class="form-group">
-                            <label for="propertyAddress-0" class="required-field">Property Address</label>
-                            <input
-                                type="text"
-                                id="propertyAddress-0"
-                                name="propertyAddress"
-                                required
-                            />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="totalUnits-0" class="required-field">Total Units</label>
-                            <input
-                                type="number"
-                                id="totalUnits-0"
-                                name="totalUnits"
-                                required
-                            />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="propertyType-0" class="required-field">Property Type</label>
-                            <select
-                                id="propertyType-0"
-                                name="propertyType"
-                                required
-                            >
-                                <option value="residential">Residential</option>
-                                <option value="commercial">Commercial</option>
-                                <option value="mixed">Mixed Use</option>
-                            </select>
+                            <label for="confirmPassword" class="required-field">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required />
+                            <span class="form-error" id="confirmPassword-error"></span>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" id="addPropertyButton" class="add-property-button">
-                    Add Another Property
-                </button>
+                <div class="form-section" id="section-property">
+                    <div class="section-header">
+                        <h2>
+                            <span class="section-icon">🏠</span>
+                            Property Information
+                        </h2>
+                        <span class="section-badge">Step 2 of 2</span>
+                    </div>
+                    
+                    <div id="propertySection">
+                        <div class="property-section" id="property-0">
+                            <div class="property-header">
+                                <h3>Property 1</h3>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="propertyName-0" class="required-field">Property Name</label>
+                                    <input type="text" id="propertyName-0" name="propertyName" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="propertyType-0" class="required-field">Property Type</label>
+                                    <select id="propertyType-0" name="propertyType" required>
+                                        <option value="">Select type</option>
+                                        <option value="residential">Residential</option>
+                                        <option value="commercial">Commercial</option>
+                                        <option value="mixed">Mixed Use</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <button type="submit" class="signup-button">
-                    Register as Landlord
-                </button>
+                            <div class="form-group">
+                                <label for="propertyAddress-0" class="required-field">Property Address</label>
+                                <input type="text" id="propertyAddress-0" name="propertyAddress" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="totalUnits-0" class="required-field">Total Units</label>
+                                <input type="number" id="totalUnits-0" name="totalUnits" min="1" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="addPropertyButton" class="add-property-button">
+                        <span class="button-icon">+</span>
+                        Add Another Property
+                    </button>
+                    
+                    <div class="navigation-buttons">
+                        <button type="button" id="prevButton" class="nav-button secondary" style="display: none;">
+                            Previous
+                        </button>
+                        <button type="button" id="nextButton" class="nav-button primary">
+                            Next Step
+                        </button>
+                        <button type="submit" id="submitButton" class="nav-button primary" style="display: none;">
+                            <span class="button-text">Register as Landlord</span>
+                            <span class="button-loader"></span>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 
     <script>
         let propertyCount = 1;
+        let currentStep = 1;
+        let isSubmitting = false;
         
-        document.getElementById('addPropertyButton').addEventListener('click', function() {
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            setupFormValidation();
+            setupStepNavigation();
+            setupPropertyManagement();
+            setupPasswordStrength();
+            updateProgress();
+        });
+
+        function setupFormValidation() {
+            const inputs = document.querySelectorAll('input[required], select[required]');
+            inputs.forEach(input => {
+                input.addEventListener('blur', validateField);
+                input.addEventListener('input', clearError);
+            });
+        }
+
+        function validateField(e) {
+            const field = e.target;
+            const value = field.value.trim();
+            const fieldName = field.name;
+            
+            clearError(e);
+            
+            if (!value) {
+                showError(field, 'This field is required');
+                return false;
+            }
+            
+            // Specific validations
+            if (fieldName === 'email' && !isValidEmail(value)) {
+                showError(field, 'Please enter a valid email address');
+                return false;
+            }
+            
+            if (fieldName === 'confirmPassword') {
+                const password = document.getElementById('password').value;
+                if (value !== password) {
+                    showError(field, 'Passwords do not match');
+                    return false;
+                }
+            }
+            
+            if (fieldName === 'phoneNumber' && !isValidPhone(value)) {
+                showError(field, 'Please enter a valid phone number');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function clearError(e) {
+            const field = e.target;
+            const errorElement = document.getElementById(field.id + '-error');
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+            field.classList.remove('error');
+        }
+
+        function showError(field, message) {
+            const errorElement = document.getElementById(field.id + '-error');
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+            field.classList.add('error');
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPhone(phone) {
+            return /^[\+]?[1-9][\d]{0,15}$/.test(phone.replace(/\s/g, ''));
+        }
+
+        function setupStepNavigation() {
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
+            
+            nextButton.addEventListener('click', function() {
+                if (currentStep === 1) {
+                    if (validatePersonalInfo()) {
+                        showStep(2);
+                    }
+                }
+            });
+            
+            prevButton.addEventListener('click', function() {
+                if (currentStep === 2) {
+                    showStep(1);
+                }
+            });
+        }
+
+        function showStep(step) {
+            const sections = document.querySelectorAll('.form-section');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
+            const submitButton = document.getElementById('submitButton');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            
+            if (step === 1) {
+                document.getElementById('section-personal').classList.add('active');
+                nextButton.style.display = 'block';
+                prevButton.style.display = 'none';
+                submitButton.style.display = 'none';
+            } else if (step === 2) {
+                document.getElementById('section-property').classList.add('active');
+                nextButton.style.display = 'none';
+                prevButton.style.display = 'block';
+                submitButton.style.display = 'block';
+            }
+            
+            currentStep = step;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progress = (currentStep / 2) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        function validatePersonalInfo() {
+            const requiredFields = ['firstName', 'lastName', 'email', 'phoneNumber', 'idNumber', 'password', 'confirmPassword'];
+            let isValid = true;
+            
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (!validateField({target: field})) {
+                    isValid = false;
+                }
+            });
+            
+            return isValid;
+        }
+
+        function setupPropertyManagement() {
+            document.getElementById('addPropertyButton').addEventListener('click', function() {
+                addProperty();
+            });
+        }
+
+        function addProperty() {
             const propertySection = document.getElementById('propertySection');
             const newProperty = document.createElement('div');
             newProperty.className = 'property-section';
             newProperty.id = `property-${propertyCount}`;
             
             newProperty.innerHTML = `
-                <h3>Property ${propertyCount + 1}</h3>
-                <div class="form-group">
-                    <label for="propertyName-${propertyCount}" class="required-field">Property Name</label>
-                    <input
-                        type="text"
-                        id="propertyName-${propertyCount}"
-                        name="propertyName"
-                        required
-                    />
+                <div class="property-header">
+                    <h3>Property ${propertyCount + 1}</h3>
+                    <button type="button" class="remove-property" onclick="removeProperty(${propertyCount})">
+                        <span>×</span>
+                    </button>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="propertyName-${propertyCount}" class="required-field">Property Name</label>
+                        <input type="text" id="propertyName-${propertyCount}" name="propertyName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyType-${propertyCount}" class="required-field">Property Type</label>
+                        <select id="propertyType-${propertyCount}" name="propertyType" required>
+                            <option value="">Select type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="mixed">Mixed Use</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="propertyAddress-${propertyCount}" class="required-field">Property Address</label>
-                    <input
-                        type="text"
-                        id="propertyAddress-${propertyCount}"
-                        name="propertyAddress"
-                        required
-                    />
+                    <input type="text" id="propertyAddress-${propertyCount}" name="propertyAddress" required />
                 </div>
 
                 <div class="form-group">
                     <label for="totalUnits-${propertyCount}" class="required-field">Total Units</label>
-                    <input
-                        type="number"
-                        id="totalUnits-${propertyCount}"
-                        name="totalUnits"
-                        required
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label for="propertyType-${propertyCount}" class="required-field">Property Type</label>
-                    <select
-                        id="propertyType-${propertyCount}"
-                        name="propertyType"
-                        required
-                    >
-                        <option value="residential">Residential</option>
-                        <option value="commercial">Commercial</option>
-                        <option value="mixed">Mixed Use</option>
-                    </select>
+                    <input type="number" id="totalUnits-${propertyCount}" name="totalUnits" min="1" required />
                 </div>
             `;
             
             propertySection.appendChild(newProperty);
             propertyCount++;
-        });
-        
+            
+            // Add animation
+            newProperty.style.opacity = '0';
+            newProperty.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                newProperty.style.transition = 'all 0.3s ease';
+                newProperty.style.opacity = '1';
+                newProperty.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        function removeProperty(index) {
+            const property = document.getElementById(`property-${index}`);
+            if (property && propertyCount > 1) {
+                property.style.transition = 'all 0.3s ease';
+                property.style.opacity = '0';
+                property.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    property.remove();
+                }, 300);
+            }
+        }
+
+        function setupPasswordStrength() {
+            const passwordInput = document.getElementById('password');
+            const strengthIndicator = document.getElementById('passwordStrength');
+            
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                updatePasswordStrength(strengthIndicator, strength);
+            });
+        }
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 8) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            return score;
+        }
+
+        function updatePasswordStrength(indicator, strength) {
+            const levels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+            const colors = ['#ff4757', '#ff6b7a', '#ffa502', '#2ed573', '#1dd1a1'];
+            
+            indicator.textContent = levels[strength - 1] || '';
+            indicator.style.color = colors[strength - 1] || '#ddd';
+            
+            const width = (strength / 5) * 100;
+            indicator.style.setProperty('--strength-width', width + '%');
+        }
+
+        // Form submission
         document.getElementById('landlordSignupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get personal information
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                confirmPassword: document.getElementById('confirmPassword').value,
-                idNumber: document.getElementById('idNumber').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                businessRegistrationNumber: document.getElementById('businessRegistrationNumber').value,
-                propertyDetails: []
-            };
+            if (isSubmitting) return;
             
-            // Validate passwords match
-            if (formData.password !== formData.confirmPassword) {
-                alert('Passwords do not match!');
+            if (!validateForm()) {
                 return;
             }
             
-            // Basic validation for required fields
-            const requiredFields = [
-                'firstName', 'lastName', 'email', 'phoneNumber', 
-                'idNumber', 'password', 'confirmPassword'
-            ];
-            
-            for (const field of requiredFields) {
-                if (formData[field] === '') {
-                    alert('Please fill in all required fields');
-                    return;
-                }
+            submitForm();
+        });
+
+        function validateForm() {
+            // Validate personal info
+            if (!validatePersonalInfo()) {
+                showStep(1);
+                return false;
             }
             
-            // Collect property information
+            // Validate property info
             for (let i = 0; i < propertyCount; i++) {
-                const property = {
-                    propertyName: document.getElementById(`propertyName-${i}`).value,
-                    propertyAddress: document.getElementById(`propertyAddress-${i}`).value,
-                    totalUnits: document.getElementById(`totalUnits-${i}`).value,
-                    propertyType: document.getElementById(`propertyType-${i}`).value
-                };
+                const propertyElement = document.getElementById(`property-${i}`);
+                if (!propertyElement) continue;
                 
-                // Validate property fields
-                if (!property.propertyName || !property.propertyAddress || !property.totalUnits) {
-                    alert(`Please fill in all required fields for Property ${i + 1}`);
-                    return;
+                const fields = ['propertyName', 'propertyAddress', 'totalUnits', 'propertyType'];
+                for (const field of fields) {
+                    const input = document.getElementById(`${field}-${i}`);
+                    if (input && !input.value.trim()) {
+                        alert(`Please fill in all required fields for Property ${i + 1}`);
+                        return false;
+                    }
                 }
-                
-                formData.propertyDetails.push(property);
             }
             
-            // Form is valid - proceed with submission
-            console.log('Landlord signup attempt with:', formData);
-            alert('Registration successful! (This is a demo)');
-            // Here you would typically send the data to your server
+            return true;
+        }
+
+        function submitForm() {
+            isSubmitting = true;
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = submitButton.querySelector('.button-text');
+            const buttonLoader = submitButton.querySelector('.button-loader');
+            
+            submitButton.disabled = true;
+            buttonText.style.opacity = '0';
+            buttonLoader.style.display = 'inline-block';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                isSubmitting = false;
+                submitButton.disabled = false;
+                buttonText.style.opacity = '1';
+                buttonLoader.style.display = 'none';
+                
+                // Show success message
+                showSuccessMessage();
+            }, 2000);
+        }
+
+        function showSuccessMessage() {
+            const container = document.querySelector('.signup-container');
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <div class="success-icon">✓</div>
+                <h2>Registration Successful!</h2>
+                <p>Welcome to our platform. You can now start managing your properties.</p>
+                <button onclick="location.reload()" class="success-button">Register Another Landlord</button>
+            `;
+            
+            container.appendChild(successMessage);
+            
+            setTimeout(() => {
+                successMessage.classList.add('show');
+            }, 100);
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
         });
     </script>
 </body>
