@@ -1,203 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Registration</title>
-    <link rel="stylesheet" href="agent.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NyumbaSync Agent Registration</title>
+  <link rel="stylesheet" href="agent.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="signup-container">
-        <div class="signup-box">
-            <h1>Agent Registration</h1>
-            <form id="agentSignupForm">
-                <div class="form-section">
-                    <h2>Personal Information</h2>
-                    <div class="form-group">
-                        <label for="firstName" class="required-field">First Name</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            required
-                        />
-                    </div>
+  <div class="background-animation">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+  </div>
 
-                    <div class="form-group">
-                        <label for="lastName" class="required-field">Last Name</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="required-field">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phoneNumber" class="required-field">Phone Number</label>
-                        <input
-                            type="tel"
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="idNumber" class="required-field">ID Number</label>
-                        <input
-                            type="text"
-                            id="idNumber"
-                            name="idNumber"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="required-field">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmPassword" class="required-field">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            required
-                        />
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h2>Professional Information</h2>
-                    <div class="form-group">
-                        <label for="agencyName" class="required-field">Agency Name</label>
-                        <input
-                            type="text"
-                            id="agencyName"
-                            name="agencyName"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="licenseNumber" class="required-field">License Number</label>
-                        <input
-                            type="text"
-                            id="licenseNumber"
-                            name="licenseNumber"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="agencyAddress" class="required-field">Agency Address</label>
-                        <input
-                            type="text"
-                            id="agencyAddress"
-                            name="agencyAddress"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="yearsOfExperience" class="required-field">Years of Experience</label>
-                        <input
-                            type="number"
-                            id="yearsOfExperience"
-                            name="yearsOfExperience"
-                            required
-                            min="0"
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="specialization" class="required-field">Specialization</label>
-                        <select
-                            id="specialization"
-                            name="specialization"
-                            multiple
-                            required
-                        >
-                            <option value="residential">Residential Properties</option>
-                            <option value="commercial">Commercial Properties</option>
-                            <option value="industrial">Industrial Properties</option>
-                            <option value="land">Land</option>
-                            <option value="property-management">Property Management</option>
-                        </select>
-                        <small>Hold Ctrl/Cmd to select multiple options</small>
-                    </div>
-                </div>
-
-                <button type="submit" class="signup-button">
-                    Register as Agent
-                </button>
-            </form>
-        </div>
+  <div class="signup-container">
+    <div class="signup-header">
+      <div class="logo-container">
+        <i class="fas fa-home logo-icon"></i>
+        <h1>NyumbaSync</h1>
+      </div>
+      <p class="subtitle">Join our network of professional agents</p>
     </div>
 
-    <script>
-        document.getElementById('agentSignupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                confirmPassword: document.getElementById('confirmPassword').value,
-                idNumber: document.getElementById('idNumber').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                agencyName: document.getElementById('agencyName').value,
-                licenseNumber: document.getElementById('licenseNumber').value,
-                agencyAddress: document.getElementById('agencyAddress').value,
-                yearsOfExperience: document.getElementById('yearsOfExperience').value,
-                specialization: Array.from(document.getElementById('specialization').selectedOptions)
-                    .map(option => option.value)
-            };
-            
-            // Validate passwords match
-            if (formData.password !== formData.confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            // Basic validation for required fields
-            for (const key in formData) {
-                if (formData[key] === '' && key !== 'specialization') {
-                    alert('Please fill in all required fields');
-                    return;
-                }
-            }
-            
-            // Specialization must have at least one selection
-            if (formData.specialization.length === 0) {
-                alert('Please select at least one specialization');
-                return;
-            }
-            
-            // Form is valid - proceed with submission
-            console.log('Agent signup attempt with:', formData);
-            alert('Registration successful! (This is a demo)');
-            // Here you would typically send the data to your server
-        });
-    </script>
+    <form id="agentSignupForm" class="signup-form">
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-user-tie section-icon"></i>
+          <h2>Personal Information</h2>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">
+              <i class="fas fa-user"></i>
+              First Name *
+            </label>
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" />
+            <div class="input-border"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">
+              <i class="fas fa-user"></i>
+              Last Name *
+            </label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" />
+            <div class="input-border"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            <i class="fas fa-envelope"></i>
+            Email *
+          </label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+          <div class="input-border"></div>
+          <div id="emailValidation" class="validation-message"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phoneNumber">
+              <i class="fas fa-phone"></i>
+              Phone Number *
+            </label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="e.g. +254 700 123456" />
+            <div class="input-border"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="idNumber">
+              <i class="fas fa-id-card"></i>
+              ID Number *
+            </label>
+            <input type="text" id="idNumber" name="idNumber" required placeholder="Enter your national ID" />
+            <div class="input-border"></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">
+              <i class="fas fa-lock"></i>
+              Password *
+            </label>
+            <div class="password-container">
+              <input type="password" id="password" name="password" required placeholder="Create a password" />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('password')"></i>
+            </div>
+            <div class="input-border"></div>
+            <div id="passwordStrength" class="password-strength">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <span class="strength-text">Password strength</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">
+              <i class="fas fa-lock"></i>
+              Confirm Password *
+            </label>
+            <div class="password-container">
+              <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password" />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword')"></i>
+            </div>
+            <div class="input-border"></div>
+            <div id="passwordMatch" class="validation-message"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <i class="fas fa-briefcase section-icon"></i>
+          <h2>Professional Information</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="agencyName">
+            <i class="fas fa-building"></i>
+            Agency Name *
+          </label>
+          <input type="text" id="agencyName" name="agencyName" required placeholder="Enter your agency name" />
+          <div class="input-border"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="licenseNumber">
+              <i class="fas fa-certificate"></i>
+              License Number *
+            </label>
+            <input type="text" id="licenseNumber" name="licenseNumber" required placeholder="Enter your license number" />
+            <div class="input-border"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="yearsOfExperience">
+              <i class="fas fa-calendar-alt"></i>
+              Years of Experience *
+            </label>
+            <input type="number" id="yearsOfExperience" name="yearsOfExperience" required min="0" placeholder="0" />
+            <div class="input-border"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="agencyAddress">
+            <i class="fas fa-map-marker-alt"></i>
+            Agency Address *
+          </label>
+          <input type="text" id="agencyAddress" name="agencyAddress" required placeholder="Enter your agency address" />
+          <div class="input-border"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="multi-select-label">
+            <i class="fas fa-tags"></i>
+            Specialization *
+          </label>
+          <div class="multi-select-container">
+            <div class="select-options">
+              <div class="option" data-value="residential">
+                <i class="fas fa-home"></i> Residential
+              </div>
+              <div class="option" data-value="commercial">
+                <i class="fas fa-store"></i> Commercial
+              </div>
+              <div class="option" data-value="industrial">
+                <i class="fas fa-industry"></i> Industrial
+              </div>
+              <div class="option" data-value="land">
+                <i class="fas fa-mountain"></i> Land
+              </div>
+              <div class="option" data-value="property-management">
+                <i class="fas fa-tasks"></i> Property Management
+              </div>
+            </div>
+            <input type="hidden" id="specialization" name="specialization" required />
+            <div id="selectedSpecializations" class="selected-options"></div>
+          </div>
+          <div class="input-border"></div>
+        </div>
+      </div>
+
+      <div class="form-group terms-group">
+        <input type="checkbox" id="termsAgreement" name="termsAgreement" required />
+        <label for="termsAgreement">
+          I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a> *
+        </label>
+      </div>
+
+      <button type="submit" class="signup-button">
+        <span class="button-text">Complete Registration</span>
+        <i class="fas fa-arrow-right button-icon"></i>
+      </button>
+    </form>
+
+    <div class="signup-footer">
+      <p>Already have an account? <a href="/login">Log In</a></p>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Processing your registration...</p>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Welcome to NyumbaSync!</h3>
+      <p>Your agent account has been created successfully.</p>
+      <div class="agent-welcome">
+        <i class="fas fa-user-tie"></i>
+        <p>You can now start managing properties and connecting with clients.</p>
+      </div>
+      <button class="modal-button" onclick="closeModal()">Get Started</button>
+    </div>
+  </div>
+
+  <script>
+    const formData = {
+      selectedSpecializations: []
+    };
+
+    // Password strength indicator
+    document.getElementById('password').addEventListener('input', function() {
+      const password = this.value;
+      const strengthBars = document.querySelectorAll('.strength-bar');
+      const strengthText = document.querySelector('.strength-text');
+      
+      // Reset all bars
+      strengthBars.forEach(bar => bar.style.backgroundColor = '#e1e1e1');
+      
+      if (password.length === 0) {
+        strengthText.textContent = 'Password strength';
+        return;
+      }
+      
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+      
+      // Update bars
+      for (let i = 0; i < strength; i++) {
+        let color;
+        if (strength === 1) color = '#e74c3c';
+        else if (strength === 2) color = '#f39c12';
+        else if (strength === 3) color = '#3498db';
+        else color = '#2ecc71';
+        
+        strengthBars[i].style.backgroundColor = color;
+      }
+      
+      // Update text
+      const strengthMessages = ['Weak', 'Fair', 'Good', 'Strong'];
+      strengthText.textContent = strengthMessages[strength - 1] || 'Password strength';
+    });
+
+    // Password match validation
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = this.value;
+      const matchMessage = document.getElementById('passwordMatch');
+      
+      if (confirmPassword.length === 0) {
+        matchMessage.textContent = '';
+        matchMessage.className = 'validation-message';
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        matchMessage.textContent = 'Passwords do not match';
+        matchMessage.className = 'validation-message error';
+      } else {
+        matchMessage.textContent = 'Passwords match';
+        matchMessage.className = 'validation-message success';
+      }
+    });
+
+    // Email validation
+    document.getElementById('email').addEventListener('blur', function() {
+      const email = this.value;
+      const emailValidation = document.getElementById('emailValidation');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (email.length === 0) {
+        emailValidation.textContent = '';
+        emailValidation.className = 'validation-message';
+        return;
+      }
+      
+      if (!emailRegex.test(email)) {
+        emailValidation.textContent = 'Please enter a valid email address';
+        emailValidation.className = 'validation-message error';
+      } else {
+        emailValidation.textContent = 'Email is valid';
+        emailValidation.className = 'validation-message success';
+      }
+    });
+
+    // Specialization selection
+    document.querySelectorAll('.option').forEach(option => {
+      option.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        const index = formData.selectedSpecializations.indexOf(value);
+        
+        if (index === -1) {
+          // Add to selection
+          formData.selectedSpecializations.push(value);
+          this.classList.add('selected');
+        } else {
+          // Remove from selection
+          formData.selectedSpecializations.splice(index, 1);
+          this.classList.remove('selected');
+        }
+        
+        // Update hidden input
+        document.getElementById('specialization').value = formData.selectedSpecializations.join(',');
+        
+        // Update selected options display
+        const selectedContainer = document.getElementById('selectedSpecializations');
+        selectedContainer.innerHTML = formData.selectedSpecializations.map(spec => {
+          const iconClass = {
+            residential: 'fa-home',
+            commercial: 'fa-store',
+            industrial: 'fa-industry',
+            land: 'fa-mountain',
+            'property-management': 'fa-tasks'
+          }[spec];
+          
+          return `<span class="selected-tag"><i class="fas ${iconClass}"></i> ${spec.replace('-', ' ')}</span>`;
+        }).join('');
+        
+        // Validate at least one is selected
+        const validation = document.getElementById('specialization').parentElement.querySelector('.validation-message');
+        if (formData.selectedSpecializations.length === 0) {
+          if (!validation) {
+            const newValidation = document.createElement('div');
+            newValidation.className = 'validation-message error';
+            newValidation.textContent = 'Please select at least one specialization';
+            document.getElementById('specialization').parentElement.appendChild(newValidation);
+          }
+        } else if (validation) {
+          validation.remove();
+        }
+      });
+    });
+
+    // Toggle password visibility
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      const icon = document.querySelector(`#${fieldId} + .password-toggle`);
+      
+      if (field.type === 'password') {
+        field.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        field.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    // Loading functions
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+
+    function showSuccessModal() {
+      document.getElementById('successModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('successModal').style.display = 'none';
+      // Redirect or perform other actions after closing modal
+    }
+
+    // Form submission
+    document.getElementById("agentSignupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Validate all required fields
+      let isValid = true;
+      const requiredFields = this.querySelectorAll('[required]');
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          isValid = false;
+          
+          // Scroll to first error
+          if (isValid === false) {
+            field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            isValid = null; // Prevent further scrolling
+          }
+        } else {
+          field.classList.remove('error');
+        }
+      });
+      
+      // Special validation for specialization
+      if (formData.selectedSpecializations.length === 0) {
+        const validation = document.createElement('div');
+        validation.className = 'validation-message error';
+        validation.textContent = 'Please select at least one specialization';
+        document.getElementById('specialization').parentElement.appendChild(validation);
+        isValid = false;
+      }
+      
+      // Validate password match
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        document.getElementById('passwordMatch').textContent = 'Passwords do not match';
+        document.getElementById('passwordMatch').className = 'validation-message error';
+        isValid = false;
+      }
+      
+      if (!isValid) {
+        showNotification('Please fill in all required fields correctly', 'error');
+        return;
+      }
+      
+      const signupButton = document.querySelector('.signup-button');
+      signupButton.classList.add('loading');
+      showLoading();
+      
+      // Simulate form submission
+      setTimeout(() => {
+        hideLoading();
+        signupButton.classList.remove('loading');
+        
+        const collectedData = {
+          firstName: this.firstName.value,
+          lastName: this.lastName.value,
+          email: this.email.value,
+          phoneNumber: this.phoneNumber.value,
+          idNumber: this.idNumber.value,
+          password: this.password.value,
+          agencyName: this.agencyName.value,
+          licenseNumber: this.licenseNumber.value,
+          agencyAddress: this.agencyAddress.value,
+          yearsOfExperience: this.yearsOfExperience.value,
+          specialization: formData.selectedSpecializations,
+          termsAgreement: this.termsAgreement.checked
+        };
+        
+        console.log("Agent signup attempt with:", collectedData);
+        showSuccessModal();
+      }, 2000);
+    });
+
+    // Real-time validation feedback
+    document.querySelectorAll('input[required]').forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          this.classList.add('error');
+        } else {
+          this.classList.remove('error');
+        }
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.classList.contains('error') && this.value.trim() !== '') {
+          this.classList.remove('error');
+        }
+      });
+    });
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
