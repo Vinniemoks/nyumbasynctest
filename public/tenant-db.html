@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NyumbaSync - Tenant Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/tenantdb.css">
+</head>
+<body>
+  
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="images/logo.png" alt="NyumbaSync Logo">
+      <span class="menu-text">NyumbaSync</span> 
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#" class="active"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+      <li><a href="#"><i class="fas fa-house-user"></i> <span class="menu-text">My Rentals</span></a></li>
+      <li><a href="#"><i class="fas fa-receipt"></i> <span class="menu-text">Payments</span></a></li>
+      <li><a href="#"><i class="fas fa-tools"></i> <span class="menu-text">Maintenance</span></a></li>
+      <li><a href="#"><i class="fas fa-file-contract"></i> <span class="menu-text">Documents</span></a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i> <span class="menu-text">Help</span></a></li>
+    </ul>
+  </aside>
+
+  
+  <main class="main-content">
+   
+    <nav class="top-nav">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search...">
+      </div>
+      <div class="nav-icons">
+        <div class="icon">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </div>
+        <div class="icon">
+          <i class="fas fa-envelope"></i>
+          <span class="badge">1</span>
+        </div>
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/35" alt="User">
+          <span>John Doe</span>
+        </div>
+      </div>
+    </nav>
+
+    
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <h3>Rent Due</h3>
+          <div class="card-icon rent">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+        </div>
+        <h2>KSh 15,000</h2>
+        <p>Due in 5 days (5th June)</p>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Maintenance</h3>
+          <div class="card-icon maintenance">
+            <i class="fas fa-tools"></i>
+          </div>
+        </div>
+        <h2>2 Active</h2>
+        <p>1 pending approval</p>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Inspection</h3>
+          <div class="card-icon inspection">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+        </div>
+        <h2>Upcoming</h2>
+        <p>15th June, 10 AM</p>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Lease End</h3>
+          <div class="card-icon lease">
+            <i class="fas fa-file-signature"></i>
+          </div>
+        </div>
+        <h2>45 Days</h2>
+        <p>Renewal available</p>
+      </div>
+    </div>
+
+   
+    <div class="quick-actions">
+      <button class="action-btn">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Pay Rent</span>
+      </button>
+      <button class="action-btn">
+        <i class="fas fa-tools"></i>
+        <span>Request Help</span>
+      </button>
+      <button class="action-btn">
+        <i class="fas fa-envelope"></i>
+        <span>Message</span>
+      </button>
+    </div>
+
+    
+    <div class="activity-section">
+      <div class="section-header">
+        <h2 class="section-title">Recent Activity</h2>
+        <a href="#">View All</a>
+      </div>
+      
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Rent Payment Confirmed</h4>
+          <p>Your payment of KSh 15,000 has been received</p>
+        </div>
+        <div class="activity-time">2 hours ago</div>
+      </div>
+      
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Maintenance Approved</h4>
+          <p>Plumbing issue scheduled for tomorrow</p>
+        </div>
+        <div class="activity-time">1 day ago</div>
+      </div>
+      
+      <div class="activity-item">
+        <div class="activity-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <div class="activity-content">
+          <h4>Rent Reminder</h4>
+          <p>Your next rent payment is due in 5 days</p>
+        </div>
+        <div class="activity-time">2 days ago</div>
+      </div>
+    </div>
+
+    
+    <div class="property-card">
+      <div class="property-image">
+        <img src="https://via.placeholder.com/600x400" alt="Property Image">
+      </div>
+      <div class="property-details">
+        <h3 class="property-address">123 Riverside Drive, Nairobi</h3>
+        <div class="property-amenities">
+          <span class="amenity-tag">3 Bedrooms</span>
+          <span class="amenity-tag">2 Bathrooms</span>
+          <span class="amenity-tag">Parking</span>
+          <span class="amenity-tag">Balcony</span>
+        </div>
+        <p>Your current rental property. Lease ends on 15th August 2023.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Basic sidebar toggle functionality
+    document.querySelector('.sidebar-header').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('collapsed');
+    });
+  </script>
+</body>
+</html>

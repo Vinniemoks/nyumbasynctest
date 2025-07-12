@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NyumbaSync Landlord Sign Up</title>
+  <link rel="stylesheet" href="/public/css/tenant.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="background-animation">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+  </div>
+
+  <div class="signup-container">
+    <div class="signup-header">
+      <div class="logo-container">
+        <i class="fas fa-home logo-icon"></i>
+        <h1>NyumbaSync</h1>
+      </div>
+      <p class="subtitle">Join the future of property management</p>
+    </div>
+
+    <form id="signupForm" class="signup-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">
+            <i class="fas fa-user"></i>
+            First Name *
+          </label>
+          <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" />
+          <div class="input-border"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="middleName">
+            <i class="fas fa-user"></i>
+            Middle Name
+          </label>
+          <input type="text" id="middleName" name="middleName" placeholder="Enter your middle name (optional)" />
+          <div class="input-border"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">
+          <i class="fas fa-user"></i>
+          Last Name *
+        </label>
+        <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" />
+        <div class="input-border"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">
+          <i class="fas fa-envelope"></i>
+          Email *
+        </label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
+        <div class="input-border"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="idNumber">
+          <i class="fas fa-id-card"></i>
+          ID Number *
+        </label>
+        <input type="text" id="idNumber" name="idNumber" required placeholder="Enter your ID number" />
+        <div class="input-border"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="agentLandlordCode">
+          <i class="fas fa-key"></i>
+          Agent/Landlord Code *
+        </label>
+        <div class="input-with-button">
+          <input type="text" id="agentLandlordCode" name="agentLandlordCode" required placeholder="Enter agent/landlord code" />
+          <button type="button" class="validate-button" onclick="validateAgentLandlordCode()">
+            <span class="button-text">Validate</span>
+            <i class="fas fa-check button-icon"></i>
+          </button>
+        </div>
+        <div class="input-border"></div>
+        <div id="landlordDetails" class="validation-details" style="display: none;"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="houseNumber">
+          <i class="fas fa-home"></i>
+          House Number *
+        </label>
+        <div class="input-with-button">
+          <input type="text" id="houseNumber" name="houseNumber" required placeholder="Enter house number" />
+          <button type="button" class="validate-button" onclick="validateHouseNumber()">
+            <span class="button-text">Validate</span>
+            <i class="fas fa-check button-icon"></i>
+          </button>
+        </div>
+        <div class="input-border"></div>
+        <div id="houseValidationMessage" class="validation-success" style="display: none;">
+          <i class="fas fa-check-circle"></i>
+          House number validated successfully!
+        </div>
+      </div>
+
+      <button type="submit" class="signup-button">
+        <span class="button-text">Sign Up</span>
+        <i class="fas fa-arrow-right button-icon"></i>
+      </button>
+    </form>
+
+    <div class="signup-footer">
+      <p>Already have an account? <a href="/public/login.html">Log In</a></p>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Validating...</p>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Welcome to NyumbaSync!</h3>
+      <p>Your account has been created successfully.</p>
+      <button class="modal-button" onclick="closeModal()">Get Started</button>
+    </div>
+  </div>
+
+  <script>
+    const formData = {
+      landlordDetails: null,
+      agentLandlordCodeValid: false,
+      houseNumberValid: false,
+    };
+
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+
+    function validateAgentLandlordCode() {
+      const code = document.getElementById("agentLandlordCode").value;
+      const button = event.target.closest('.validate-button');
+      
+      if (!code.trim()) {
+        showNotification('Please enter an agent/landlord code', 'error');
+        return;
+      }
+
+      button.classList.add('loading');
+      showLoading();
+
+      setTimeout(() => {
+        hideLoading();
+        button.classList.remove('loading');
+        
+        // Simulate API validation
+        formData.landlordDetails = {
+          name: 'John Doe',
+          contact: '+254 123 456 789',
+          propertyName: 'Sunset Apartments',
+          location: 'Nairobi, Kenya'
+        };
+        formData.agentLandlordCodeValid = true;
+
+        const detailBox = document.getElementById("landlordDetails");
+        detailBox.innerHTML = `
+          <div class="landlord-card">
+            <div class="landlord-header">
+              <i class="fas fa-building"></i>
+              <h4>Property Details</h4>
+            </div>
+            <div class="landlord-info">
+              <div class="info-item">
+                <i class="fas fa-user"></i>
+                <span>Landlord: ${formData.landlordDetails.name}</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <span>Contact: ${formData.landlordDetails.contact}</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-building"></i>
+                <span>Property: ${formData.landlordDetails.propertyName}</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Location: ${formData.landlordDetails.location}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        detailBox.style.display = "block";
+        
+        button.classList.add('validated');
+        showNotification('Agent/Landlord code validated successfully!', 'success');
+      }, 2000);
+    }
+
+    function validateHouseNumber() {
+      const house = document.getElementById("houseNumber").value;
+      const button = event.target.closest('.validate-button');
+      
+      if (!house.trim()) {
+        showNotification('Please enter a house number', 'error');
+        return;
+      }
+
+      if (!formData.agentLandlordCodeValid) {
+        showNotification('Please validate the Agent/Landlord code first', 'error');
+        return;
+      }
+
+      button.classList.add('loading');
+      showLoading();
+
+      setTimeout(() => {
+        hideLoading();
+        button.classList.remove('loading');
+        
+        formData.houseNumberValid = true;
+        const validationMessage = document.getElementById("houseValidationMessage");
+        validationMessage.style.display = "block";
+        
+        button.classList.add('validated');
+        showNotification('House number validated successfully!', 'success');
+      }, 1500);
+    }
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    function showSuccessModal() {
+      document.getElementById('successModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('successModal').style.display = 'none';
+    }
+
+    // Form submission
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      if (!formData.agentLandlordCodeValid || !formData.houseNumberValid) {
+        showNotification("Please validate both the Agent/Landlord code and House Number", 'error');
+        return;
+      }
+
+      const signupButton = document.querySelector('.signup-button');
+      signupButton.classList.add('loading');
+      
+      showLoading();
+
+      setTimeout(() => {
+        hideLoading();
+        signupButton.classList.remove('loading');
+        
+        const collectedData = {
+          firstName: this.firstName.value,
+          middleName: this.middleName.value,
+          lastName: this.lastName.value,
+          email: this.email.value,
+          idNumber: this.idNumber.value,
+          agentLandlordCode: this.agentLandlordCode.value,
+          houseNumber: this.houseNumber.value,
+          landlordDetails: formData.landlordDetails
+        };
+
+        console.log("Signup attempt with:", collectedData);
+        showSuccessModal();
+      }, 2000);
+    });
+
+    // Real-time validation feedback
+    document.querySelectorAll('input[required]').forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          this.classList.add('error');
+        } else {
+          this.classList.remove('error');
+        }
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.classList.contains('error') && this.value.trim() !== '') {
+          this.classList.remove('error');
+        }
+      });
+    });
+
+    // Email validation
+    document.getElementById('email').addEventListener('input', function() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (this.value && !emailRegex.test(this.value)) {
+        this.classList.add('error');
+      } else {
+        this.classList.remove('error');
+      }
+    });
+  </script>
+</body>
+</html>

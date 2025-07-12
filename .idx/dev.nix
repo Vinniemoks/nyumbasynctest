@@ -14,10 +14,9 @@
         command = [
           "npm"
           "run"
-          "dev"
+          "start"
           "--"
-          "--port"
-          "$PORT"
+          "--port=5000"
           "--host"
           "0.0.0.0"
         ];
