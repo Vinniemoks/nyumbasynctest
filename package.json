@@ -22,6 +22,19 @@
     "eslint": "^9.30.1",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.0.0"
-  }
+    "vite": "^5.4.19"
+  },
+  "description": "NyumbaSyncTest is a web-based property management application designed to streamline the management of landlords, tenants, and property agents. The project features user-friendly interfaces for sign-up, login, and database management, enabling efficient synchronization and handling of property-related data.",
+  "main": "cors.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vinniemoks/nyumbasynctest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vinniemoks/nyumbasynctest/issues"
+  },
+  "homepage": "https://github.com/Vinniemoks/nyumbasynctest#readme"
 }
