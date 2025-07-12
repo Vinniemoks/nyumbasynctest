@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import apiService from '../api/api';
+// Assuming api.js exports relevant functions like 'signupUser'
 function Signup() {
   const [formData, setFormData] = useState({
     fullName: '',

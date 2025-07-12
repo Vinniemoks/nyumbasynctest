@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './Login.css';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+import { loginUser } from './src/api/api'; // Assuming api.js exports a loginUser function
+import apiService from '../src/api/api'; const Login = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setError(null); // Clear previous errors on input change
+
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -17,7 +18,18 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Implement login logic here
+    // Implement login logic here with the imported API service
+    apiService
+      .login(formData)
+      .then((response) => {
+        console.log("Login success:", response);
+        // Handle successful login (e.g., redirect to dashboard)
+        // window.location.href = '/dashboard'; // Example redirection
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        setError(error.message || "Login failed. Please try again.");
+      });
     console.log('Login attempt with:', formData);
   };
 
@@ -50,6 +62,11 @@ const Login = () => {
               required
             />
           </div>
+
+          {error && (
+            <div className="text-red-500 text-sm mt-2">{error}</div>
+          )}
+
           <button type="submit" className="login-button">
             Log In
           </button>
