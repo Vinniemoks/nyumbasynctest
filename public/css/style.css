@@ -24,7 +24,7 @@ body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #2c3e50;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background:  #011f6f; ;
     overflow-x: hidden;
 }
 
@@ -67,7 +67,7 @@ body {
 
 /* Enhanced Header */
 header {
-    background: var(--glass-bg);
+    background: purple;
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
     position: fixed;
@@ -236,7 +236,7 @@ nav ul li a:hover::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
 
@@ -285,7 +285,7 @@ nav ul li a:hover::after {
 }
 
 .hero-card {
-    background: var(--glass-bg);
+    background: #001f3f;
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
@@ -441,7 +441,7 @@ section {
 
 /* Enhanced How It Works */
 .how-it-works {
-    background: var(--section-light);
+    background: var(--light-gradient);
     position: relative;
     overflow: hidden;
 }
@@ -533,7 +533,7 @@ section {
     top: 20px;
     left: 30px;
     font-size: 4rem;
-    color: var(--accent-gradient);
+    color: #4facfe;
     opacity: 0.3;
     font-family: Georgia, serif;
 }
@@ -592,6 +592,10 @@ section {
     text-align: center;
 }
 
+.contact .section-title {
+    color: white;
+}
+
 .contact-form {
     margin-top: 40px;
 }
@@ -619,7 +623,7 @@ section {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--accent-gradient);
+    border-color: #4facfe;
     box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
 }
 
@@ -663,7 +667,7 @@ footer {
 }
 
 .footer-col ul li a:hover {
-    color: var(--accent-gradient);
+    color: #4facfe;
 }
 
 .social-links {
@@ -736,6 +740,26 @@ footer {
     }
 }
 
+/* FIXED: Removed problematic fade-in animation that was causing invisible text */
+/* The fade-in class now only applies subtle entrance animations on scroll */
+.fade-in {
+    opacity: 1; /* Changed from 0 to 1 to ensure text is always visible */
+    transform: translateY(0); /* Changed from translateY(20px) to 0 */
+    transition: all 0.6s ease;
+}
+
+/* Optional: Add a scroll-triggered animation class */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .mobile-menu-btn {
@@ -791,27 +815,4 @@ footer {
     .testimonials-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* Scroll animations */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-.header-hidden {
-    transform: translateY(-100%);
-}
-
-.stagger .fade-in {
-    transition-delay: 0.1s;
-}
-
-.steps-container {
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
