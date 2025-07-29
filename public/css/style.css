@@ -958,3 +958,44 @@ footer {
         font-size: 1.5rem;
     }
 }
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+        font-size: 1.5rem;
+    }
+    
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        z-index: 1000;
+        padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav ul.show {
+        display: block;
+    }
+    
+    nav ul li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+    
+    /* Make sure buttons are visible */
+    nav ul li a.btn {
+        display: inline-block;
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+}
