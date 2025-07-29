@@ -6,32 +6,37 @@
   <title>NyumbaSync Login</title>
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Animated Background -->
-  <div class="animated-background">
-    <div class="floating-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      <div class="shape shape-4"></div>
-      <div class="shape shape-5"></div>
-      <div class="shape shape-6"></div>
+  <div class="bg-container">
+    <div class="bg-grid"></div>
+    <div class="floating-orbs">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
     </div>
+    <div class="particle-system" id="particles"></div>
   </div>
 
   <!-- Loading Screen -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="loading-spinner">
-      <div class="spinner"></div>
-      <p>Loading NyumbaSync...</p>
+  <div class="loading-overlay" id="loadingScreen">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Initializing NyumbaSync...</div>
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
 
-  <div class="login-wrapper">
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Login Card -->
     <div class="login-card" id="loginCard">
-      
       <!-- Logo Section -->
       <div class="logo-section">
         <div class="logo-container">
@@ -42,551 +47,463 @@
         </div>
       </div>
 
-      <!-- Login Header -->
+      <!-- Header -->
       <div class="login-header">
-        <h2 class="fade-in-up">Welcome back!</h2>
-        <p class="fade-in-up delay-1">Please enter your credentials to login</p>
+        <h1 class="welcome-text">Welcome Back</h1>
+        <p class="subtitle">Sign in to access your dashboard</p>
       </div>
 
-      <!-- Progress Bar -->
-      <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+      <!-- Form Progress -->
+      <div class="form-progress">
+        <div class="progress-fill" id="progressFill"></div>
       </div>
 
-      <!-- Form Container -->
+      <!-- Login Form -->
       <form id="loginForm" class="login-form">
-        
         <!-- Email/Phone Input -->
-        <div class="form-group fade-in-up delay-2">
-          <label for="identifier">Email or Phone</label>
-          <div class="input-wrapper">
-            <div class="input-icon">
-              <i class="fas fa-user"></i>
-              <input type="text" id="identifier" name="identifier" required placeholder="example@email.com" />
-              <div class="input-line"></div>
-              <i class="fas fa-check-circle validation-icon success-icon"></i>
-              <i class="fas fa-exclamation-circle validation-icon error-icon"></i>
-            </div>
+        <div class="form-group" id="emailGroup">
+          <label class="form-label" for="identifier">Email or Phone</label>
+          <div class="input-container">
+            <i class="input-icon fas fa-envelope"></i>
+            <input 
+              type="text" 
+              id="identifier" 
+              name="identifier" 
+              class="form-input" 
+              placeholder="Enter your email or phone"
+              required
+            />
+            <i class="validation-icon fas fa-check-circle"></i>
           </div>
-          <div class="field-error" id="identifierError"></div>
+          <div class="error-message" id="emailError"></div>
         </div>
-        
+
         <!-- Password Input -->
-        <div class="form-group fade-in-up delay-3">
-          <label for="password">Password</label>
-          <div class="input-wrapper">
-            <div class="input-icon">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="password" name="password" required placeholder="••••••••" />
-              <div class="input-line"></div>
-              <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-              <i class="fas fa-check-circle validation-icon success-icon"></i>
-              <i class="fas fa-exclamation-circle validation-icon error-icon"></i>
-            </div>
+        <div class="form-group" id="passwordGroup">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-container">
+            <i class="input-icon fas fa-lock"></i>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Enter your password"
+              required
+            />
+            <i class="password-toggle fas fa-eye" id="passwordToggle"></i>
+            <i class="validation-icon fas fa-check-circle"></i>
           </div>
-          <div class="field-error" id="passwordError"></div>
+          <div class="error-message" id="passwordError"></div>
           <div class="password-strength" id="passwordStrength">
-            <div class="strength-meter">
-              <div class="strength-fill"></div>
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
             </div>
-            <span class="strength-text">Password strength</span>
+            <span class="strength-text" id="strengthText">Password strength</span>
           </div>
         </div>
-        
+
         <!-- Form Options -->
-        <div class="form-options fade-in-up delay-4">
-          <div class="remember-me">
+        <div class="form-options">
+          <div class="checkbox-container">
             <div class="custom-checkbox">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                <span class="checkmark">
-                  <i class="fas fa-check"></i>
-                </span>
-                Remember me
-              </label>
+              <input type="checkbox" id="remember" name="remember">
+              <div class="checkbox-checkmark">
+                <i class="fas fa-check"></i>
+              </div>
             </div>
+            <label for="remember" class="checkbox-label">Remember me</label>
           </div>
-          <a href="/forgot-password.html" class="forgot-password">
-            <i class="fas fa-question-circle"></i>
+          <a href="/forgot-password.html" class="forgot-link">
+            <i class="fas fa-key"></i>
             Forgot password?
           </a>
         </div>
-        
+
         <!-- Login Button -->
-        <button type="submit" class="login-button fade-in-up delay-5" id="loginButton">
-          <span class="button-text">Sign In</span>
-          <div class="button-loader">
-            <div class="loader"></div>
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span class="btn-text">Sign In</span>
+          <div class="btn-loader">
+            <div class="loader-ring"></div>
           </div>
-          <i class="fas fa-arrow-right button-icon"></i>
+          <i class="btn-arrow fas fa-arrow-right"></i>
+          <div class="btn-ripple"></div>
         </button>
 
         <!-- Divider -->
-        <div class="divider fade-in-up delay-6">
-          <span>or continue with</span>
+        <div class="divider">
+          <span class="divider-text">or continue with</span>
         </div>
 
         <!-- Social Login -->
-        <div class="social-login fade-in-up delay-7">
-          <button type="button" class="social-button google" data-provider="google">
+        <div class="social-login">
+          <button type="button" class="social-btn google-btn" data-provider="google">
             <i class="fab fa-google"></i>
-            <span class="tooltip">Continue with Google</span>
+            <span class="social-tooltip">Continue with Google</span>
+            <div class="social-ripple"></div>
           </button>
-          <button type="button" class="social-button facebook" data-provider="facebook">
+          <button type="button" class="social-btn facebook-btn" data-provider="facebook">
             <i class="fab fa-facebook-f"></i>
-            <span class="tooltip">Continue with Facebook</span>
+            <span class="social-tooltip">Continue with Facebook</span>
+            <div class="social-ripple"></div>
           </button>
-          <button type="button" class="social-button apple" data-provider="apple">
+          <button type="button" class="social-btn apple-btn" data-provider="apple">
             <i class="fab fa-apple"></i>
-            <span class="tooltip">Continue with Apple</span>
+            <span class="social-tooltip">Continue with Apple</span>
+            <div class="social-ripple"></div>
+          </button>
+          <button type="button" class="social-btn github-btn" data-provider="github">
+            <i class="fab fa-github"></i>
+            <span class="social-tooltip">Continue with GitHub</span>
+            <div class="social-ripple"></div>
           </button>
         </div>
 
         <!-- Signup Link -->
-        <div class="signup-link fade-in-up delay-8">
-          Don't have an account? <a href="/signup.html">Sign up</a>
+        <div class="signup-section">
+          <span class="signup-text">Don't have an account?</span>
+          <a href="/signup.html" class="signup-link">
+            Create Account
+            <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
       </form>
     </div>
 
     <!-- Success Modal -->
     <div class="success-modal" id="successModal">
+      <div class="modal-backdrop"></div>
       <div class="modal-content">
-        <div class="success-icon">
-          <i class="fas fa-check"></i>
+        <div class="success-animation">
+          <div class="success-circle">
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="success-particles"></div>
         </div>
-        <h3>Login Successful!</h3>
-        <p>Redirecting to your dashboard...</p>
+        <h3 class="success-title">Login Successful!</h3>
+        <p class="success-subtitle">Redirecting to your dashboard...</p>
         <div class="success-progress">
-          <div class="progress-fill"></div>
+          <div class="progress-bar"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div class="error-toast" id="errorToast">
+      <div class="toast-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="toast-content">
+        <span class="toast-title">Login Failed</span>
+        <span class="toast-message" id="toastMessage"></span>
+      </div>
+      <button class="toast-close" id="toastClose">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
   </div>
 
   <script>
-    class ApiClient {
+    class PremiumLoginManager {
       constructor() {
-        this.baseURL = 'http://localhost:3001/api'; // Update this for production
-      }
-
-      async login(credentials) {
-        try {
-          const response = await fetch(`${this.baseURL}/auth/login`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.message || 'Login failed');
-          }
-
-          // Store token
-          localStorage.setItem('authToken', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-
-          return data;
-        } catch (error) {
-          console.error('Login error:', error);
-          throw error;
-        }
-      }
-
-      async signup(userData) {
-        try {
-          const response = await fetch(`${this.baseURL}/auth/signup`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.message || 'Registration failed');
-          }
-
-          return data;
-        } catch (error) {
-          console.error('Signup error:', error);
-          throw error;
-        }
-      }
-    }
-
-    class LoginManager {
-      constructor() {
-        this.apiClient = new ApiClient();
+        this.baseURL = 'http://localhost:3001/api';
         this.form = document.getElementById('loginForm');
-        this.loginButton = document.getElementById('loginButton');
-        this.progressBar = document.getElementById('progressBar');
+        this.loginBtn = document.getElementById('loginBtn');
+        this.progressFill = document.getElementById('progressFill');
         this.loadingScreen = document.getElementById('loadingScreen');
         this.loginCard = document.getElementById('loginCard');
         this.successModal = document.getElementById('successModal');
+        this.errorToast = document.getElementById('errorToast');
         
         this.identifierInput = document.getElementById('identifier');
         this.passwordInput = document.getElementById('password');
-        this.togglePassword = document.getElementById('togglePassword');
+        this.passwordToggle = document.getElementById('passwordToggle');
         this.rememberCheckbox = document.getElementById('remember');
+        
+        this.emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        this.phonePattern = /^[\+]?[1-9][\d]{0,15}$/;
         
         this.init();
       }
 
       init() {
         this.setupEventListeners();
-        this.setupValidation();
-        this.setupAnimations();
+        this.initParticleSystem();
         this.hideLoadingScreen();
+        this.initAnimations();
       }
 
       hideLoadingScreen() {
         setTimeout(() => {
           this.loadingScreen.classList.add('hidden');
           this.loginCard.classList.add('visible');
-        }, 1500);
+        }, 2000);
+      }
+
+      initParticleSystem() {
+        const particleContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 20 + 's';
+          particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+          particleContainer.appendChild(particle);
+        }
+      }
+
+      initAnimations() {
+        // Ripple effect for buttons
+        document.querySelectorAll('.login-btn, .social-btn').forEach(btn => {
+          btn.addEventListener('click', this.createRipple.bind(this));
+        });
+
+        // Input focus animations
+        document.querySelectorAll('.form-input').forEach(input => {
+          input.addEventListener('focus', this.onInputFocus.bind(this));
+          input.addEventListener('blur', this.onInputBlur.bind(this));
+        });
+      }
+
+      createRipple(e) {
+        const btn = e.currentTarget;
+        const ripple = btn.querySelector('.btn-ripple, .social-ripple');
+        if (!ripple) return;
+
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('animate');
+
+        setTimeout(() => ripple.classList.remove('animate'), 600);
+      }
+
+      onInputFocus(e) {
+        const group = e.target.closest('.form-group');
+        group.classList.add('focused');
+      }
+
+      onInputBlur(e) {
+        const group = e.target.closest('.form-group');
+        group.classList.remove('focused');
       }
 
       setupEventListeners() {
-        // Form submission
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+        this.passwordToggle.addEventListener('click', this.togglePassword.bind(this));
         
-        // Password toggle
-        this.togglePassword.addEventListener('click', () => this.togglePasswordVisibility());
-        
-        // Social login buttons
-        document.querySelectorAll('.social-button').forEach(button => {
-          button.addEventListener('click', (e) => this.handleSocialLogin(e));
-        });
-
         // Real-time validation
-        this.identifierInput.addEventListener('input', () => this.validateIdentifier());
-        this.identifierInput.addEventListener('blur', () => this.validateIdentifier());
-        
+        this.identifierInput.addEventListener('input', this.validateIdentifier.bind(this));
         this.passwordInput.addEventListener('input', () => {
           this.validatePassword();
           this.updatePasswordStrength();
+          this.updateProgress();
         });
-        this.passwordInput.addEventListener('blur', () => this.validatePassword());
+        this.identifierInput.addEventListener('input', this.updateProgress.bind(this));
 
-        // Progress tracking
-        [this.identifierInput, this.passwordInput].forEach(input => {
-          input.addEventListener('input', () => this.updateProgress());
+        // Social login
+        document.querySelectorAll('.social-btn').forEach(btn => {
+          btn.addEventListener('click', this.handleSocialLogin.bind(this));
         });
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => this.handleKeyboardShortcuts(e));
-      }
-
-      setupValidation() {
-        // Email/Phone validation patterns
-        this.emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        this.phonePattern = /^[\+]?[1-9][\d]{0,15}$/;
-      }
-
-      setupAnimations() {
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('animate');
-            }
-          });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-          observer.observe(el);
-        });
+        // Toast close
+        document.getElementById('toastClose').addEventListener('click', this.hideErrorToast.bind(this));
       }
 
       validateIdentifier() {
         const value = this.identifierInput.value.trim();
-        const wrapper = this.identifierInput.closest('.input-wrapper');
-        const errorElement = document.getElementById('identifierError');
+        const group = document.getElementById('emailGroup');
+        const errorEl = document.getElementById('emailError');
 
         if (!value) {
-          this.showFieldError(wrapper, errorElement, 'Email or phone is required');
+          this.showError(group, errorEl, 'Email or phone is required');
           return false;
         }
 
         const isEmail = this.emailPattern.test(value);
-        const isPhone = this.phonePattern.test(value);
+        const isPhone = this.phonePattern.test(value.replace(/\s/g, ''));
 
         if (!isEmail && !isPhone) {
-          this.showFieldError(wrapper, errorElement, 'Please enter a valid email or phone number');
+          this.showError(group, errorEl, 'Please enter a valid email or phone number');
           return false;
         }
 
-        this.showFieldSuccess(wrapper, errorElement);
+        this.showSuccess(group, errorEl);
         return true;
       }
 
       validatePassword() {
         const value = this.passwordInput.value;
-        const wrapper = this.passwordInput.closest('.input-wrapper');
-        const errorElement = document.getElementById('passwordError');
+        const group = document.getElementById('passwordGroup');
+        const errorEl = document.getElementById('passwordError');
 
         if (!value) {
-          this.showFieldError(wrapper, errorElement, 'Password is required');
+          this.showError(group, errorEl, 'Password is required');
           return false;
         }
 
         if (value.length < 6) {
-          this.showFieldError(wrapper, errorElement, 'Password must be at least 6 characters');
+          this.showError(group, errorEl, 'Password must be at least 6 characters');
           return false;
         }
 
-        this.showFieldSuccess(wrapper, errorElement);
+        this.showSuccess(group, errorEl);
         return true;
       }
 
       updatePasswordStrength() {
         const password = this.passwordInput.value;
-        const strengthElement = document.getElementById('passwordStrength');
-        const strengthFill = strengthElement.querySelector('.strength-fill');
-        const strengthText = strengthElement.querySelector('.strength-text');
+        const strengthEl = document.getElementById('passwordStrength');
+        const fillEl = document.getElementById('strengthFill');
+        const textEl = document.getElementById('strengthText');
 
         if (!password) {
-          strengthElement.style.opacity = '0';
+          strengthEl.style.opacity = '0';
           return;
         }
 
-        strengthElement.style.opacity = '1';
+        strengthEl.style.opacity = '1';
 
         let strength = 0;
-        let strengthLabel = '';
+        let label = '';
 
-        // Check various criteria
-        if (password.length >= 8) strength += 20;
-        if (password.length >= 12) strength += 10;
+        if (password.length >= 8) strength += 25;
+        if (password.length >= 12) strength += 15;
         if (/[a-z]/.test(password)) strength += 20;
         if (/[A-Z]/.test(password)) strength += 20;
-        if (/[0-9]/.test(password)) strength += 20;
-        if (/[^A-Za-z0-9]/.test(password)) strength += 10;
+        if (/[0-9]/.test(password)) strength += 15;
+        if (/[^A-Za-z0-9]/.test(password)) strength += 5;
 
-        // Determine strength label and color
         if (strength < 40) {
-          strengthLabel = 'Weak';
-          strengthFill.className = 'strength-fill weak';
-        } else if (strength < 70) {
-          strengthLabel = 'Medium';
-          strengthFill.className = 'strength-fill medium';
+          label = 'Weak';
+          fillEl.className = 'strength-fill weak';
+        } else if (strength < 75) {
+          label = 'Medium';
+          fillEl.className = 'strength-fill medium';
         } else {
-          strengthLabel = 'Strong';
-          strengthFill.className = 'strength-fill strong';
+          label = 'Strong';
+          fillEl.className = 'strength-fill strong';
         }
 
-        strengthFill.style.width = `${Math.min(strength, 100)}%`;
-        strengthText.textContent = `Password strength: ${strengthLabel}`;
-      }
-
-      showFieldError(wrapper, errorElement, message) {
-        wrapper.classList.add('error');
-        wrapper.classList.remove('success');
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-      }
-
-      showFieldSuccess(wrapper, errorElement) {
-        wrapper.classList.add('success');
-        wrapper.classList.remove('error');
-        errorElement.style.display = 'none';
+        fillEl.style.width = Math.min(strength, 100) + '%';
+        textEl.textContent = `Password strength: ${label}`;
       }
 
       updateProgress() {
         const fields = [this.identifierInput, this.passwordInput];
         const filledFields = fields.filter(field => field.value.trim() !== '').length;
         const progress = (filledFields / fields.length) * 100;
-        
-        this.progressBar.style.width = `${progress}%`;
-        
-        if (progress === 100) {
-          this.progressBar.classList.add('complete');
-        } else {
-          this.progressBar.classList.remove('complete');
-        }
+        this.progressFill.style.width = progress + '%';
       }
 
-      togglePasswordVisibility() {
+      showError(group, errorEl, message) {
+        group.classList.add('error');
+        group.classList.remove('success');
+        errorEl.textContent = message;
+      }
+
+      showSuccess(group, errorEl) {
+        group.classList.add('success');
+        group.classList.remove('error');
+        errorEl.textContent = '';
+      }
+
+      togglePassword() {
         const type = this.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         this.passwordInput.setAttribute('type', type);
-        this.togglePassword.classList.toggle('fa-eye-slash');
-        
-        // Add a subtle animation
-        this.passwordInput.classList.add('password-reveal');
-        setTimeout(() => {
-          this.passwordInput.classList.remove('password-reveal');
-        }, 300);
+        this.passwordToggle.classList.toggle('fa-eye-slash');
+      }
+
+      setLoadingState(isLoading) {
+        if (isLoading) {
+          this.loginBtn.classList.add('loading');
+          this.loginBtn.disabled = true;
+        } else {
+          this.loginBtn.classList.remove('loading');
+          this.loginBtn.disabled = false;
+        }
       }
 
       async handleSubmit(e) {
         e.preventDefault();
         
-        // Validate all fields
-        const isIdentifierValid = this.validateIdentifier();
+        const isEmailValid = this.validateIdentifier();
         const isPasswordValid = this.validatePassword();
         
-        if (!isIdentifierValid || !isPasswordValid) {
-          this.shakeForm();
+        if (!isEmailValid || !isPasswordValid) {
+          this.shakeCard();
           return;
         }
 
-        // Show loading state
         this.setLoadingState(true);
         
         try {
-          // Use API client for login
-          const credentials = {
+          const response = await this.login({
             email: this.identifierInput.value.trim(),
             password: this.passwordInput.value,
             remember: this.rememberCheckbox.checked
-          };
+          });
           
-          const response = await this.apiClient.login(credentials);
-          
-          // Handle successful login
-          console.log('Login successful:', response);
-          
-          // Show success and redirect
           this.showSuccessModal();
           
         } catch (error) {
-          this.showError(error.message || 'Login failed. Please try again.');
+          this.showErrorToast(error.message || 'Login failed. Please try again.');
           this.setLoadingState(false);
         }
       }
 
-      setLoadingState(isLoading) {
-        const buttonText = this.loginButton.querySelector('.button-text');
-        const buttonLoader = this.loginButton.querySelector('.button-loader');
-        const buttonIcon = this.loginButton.querySelector('.button-icon');
-        
-        if (isLoading) {
-          this.loginButton.classList.add('loading');
-          this.loginButton.disabled = true;
-          buttonText.style.opacity = '0';
-          buttonIcon.style.opacity = '0';
-          buttonLoader.style.opacity = '1';
-        } else {
-          this.loginButton.classList.remove('loading');
-          this.loginButton.disabled = false;
-          buttonText.style.opacity = '1';
-          buttonIcon.style.opacity = '1';
-          buttonLoader.style.opacity = '0';
-        }
-      }
+      async login(credentials) {
+        const response = await fetch(`${this.baseURL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(credentials)
+        });
 
-      showSuccessModal() {
-        this.successModal.classList.add('active');
-        
-        // Auto redirect after 3 seconds
-        setTimeout(() => {
-          window.location.href = '/dashboard.html';
-        }, 3000);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Login failed');
+
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        return data;
       }
 
       handleSocialLogin(e) {
         const provider = e.currentTarget.dataset.provider;
-        const button = e.currentTarget;
-        
-        // Add loading state to social button
-        button.classList.add('loading');
-        button.innerHTML = '<div class="social-loader"></div>';
-        
-        // Simulate social login
-        setTimeout(() => {
-          console.log(`Logging in with ${provider}`);
-          // Reset button state
-          button.classList.remove('loading');
-          // Restore original content based on provider
-          this.restoreSocialButton(button, provider);
-        }, 1500);
+        console.log(`Social login with ${provider}`);
+        // Implement social login logic here
       }
 
-      restoreSocialButton(button, provider) {
-        const icons = {
-          google: 'fab fa-google',
-          facebook: 'fab fa-facebook-f',
-          apple: 'fab fa-apple'
-        };
-        
-        button.innerHTML = `<i class="${icons[provider]}"></i>`;
-      }
-
-      shakeForm() {
+      shakeCard() {
         this.loginCard.classList.add('shake');
-        setTimeout(() => {
-          this.loginCard.classList.remove('shake');
-        }, 600);
+        setTimeout(() => this.loginCard.classList.remove('shake'), 600);
       }
 
-      showError(message) {
-        // Create error notification
-        const errorNotification = document.createElement('div');
-        errorNotification.className = 'error-notification';
-        errorNotification.innerHTML = `
-          <i class="fas fa-exclamation-circle"></i>
-          <span>${message}</span>
-          <button class="close-notification"><i class="fas fa-times"></i></button>
-        `;
-        
-        document.body.appendChild(errorNotification);
-        
-        // Show notification
+      showSuccessModal() {
+        this.successModal.classList.add('active');
         setTimeout(() => {
-          errorNotification.classList.add('show');
-        }, 100);
-        
-        // Close notification
-        const closeBtn = errorNotification.querySelector('.close-notification');
-        closeBtn.addEventListener('click', () => {
-          errorNotification.classList.remove('show');
-          setTimeout(() => {
-            document.body.removeChild(errorNotification);
-          }, 300);
-        });
-        
-        // Auto close after 5 seconds
-        setTimeout(() => {
-          if (errorNotification.parentNode) {
-            errorNotification.classList.remove('show');
-            setTimeout(() => {
-              if (errorNotification.parentNode) {
-                document.body.removeChild(errorNotification);
-              }
-            }, 300);
-          }
-        }, 5000);
+          window.location.href = '/dashboard.html';
+        }, 3500);
       }
 
-      handleKeyboardShortcuts(e) {
-        // Enter key submits form
-        if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
-          e.preventDefault();
-          this.handleSubmit(e);
-        }
-        
-        // Escape key clears focus
-        if (e.key === 'Escape') {
-          document.activeElement.blur();
-        }
+      showErrorToast(message) {
+        document.getElementById('toastMessage').textContent = message;
+        this.errorToast.classList.add('show');
+        setTimeout(() => this.hideErrorToast(), 5000);
+      }
+
+      hideErrorToast() {
+        this.errorToast.classList.remove('show');
       }
     }
 
     // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
-      new LoginManager();
+      new PremiumLoginManager();
     });
   </script>
 </body>
