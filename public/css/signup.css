@@ -11,31 +11,31 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 15px;
 }
 
 .signup-container {
   background: white;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  padding: 40px;
+  padding: 25px;
   max-width: 900px;
   width: 100%;
   text-align: center;
 }
 
 .logo {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .geometric-logo {
   position: relative;
   display: inline-block;
-  padding: 20px;
+  padding: 15px;
 }
 
 .logo-text {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   font-weight: 800;
   letter-spacing: -1px;
   position: relative;
@@ -71,25 +71,25 @@ body {
 
 .triangle {
   position: absolute;
-  top: 10px;
-  left: -10px;
+  top: 8px;
+  left: -8px;
   width: 0;
   height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 26px solid #4f46e5;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid #4f46e5;
   opacity: 0.6;
   animation: float 3s ease-in-out infinite;
 }
 
 .hexagon {
   position: absolute;
-  top: 15px;
-  right: -5px;
-  width: 20px;
-  height: 11.5px;
+  top: 12px;
+  right: -4px;
+  width: 16px;
+  height: 9px;
   background: #10b981;
-  margin: 5.75px 0;
+  margin: 4.5px 0;
   opacity: 0.7;
   animation: float 3s ease-in-out infinite reverse;
 }
@@ -99,27 +99,27 @@ body {
   content: "";
   position: absolute;
   width: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
 }
 
 .hexagon:before {
   bottom: 100%;
-  border-bottom: 5.75px solid #10b981;
+  border-bottom: 4.5px solid #10b981;
 }
 
 .hexagon:after {
   top: 100%;
-  border-top: 5.75px solid #10b981;
+  border-top: 4.5px solid #10b981;
 }
 
 .circle {
   position: absolute;
-  bottom: 5px;
+  bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: linear-gradient(135deg, #ec4899, #f97316);
   border-radius: 50%;
   opacity: 0.8;
@@ -128,7 +128,7 @@ body {
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-6px); }
 }
 
 @keyframes pulse {
@@ -137,17 +137,17 @@ body {
 }
 
 .role-heading {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #2d3748;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: 700;
 }
 
 .subtitle {
   color: #718096;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 40px;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 25px;
 }
 
 .signup-form {
@@ -155,29 +155,29 @@ body {
 }
 
 .form-group {
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 }
 
 .form-group > label {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   display: block;
 }
 
 .radio-group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .role-card {
   background: #f8fafc;
   border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 30px 20px;
+  border-radius: 12px;
+  padding: 18px 15px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -187,8 +187,8 @@ body {
 }
 
 .role-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .role-card.selected {
@@ -214,8 +214,8 @@ body {
 }
 
 .role-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
   display: block;
   transition: all 0.3s ease;
 }
@@ -237,26 +237,26 @@ body {
 }
 
 .role-title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   transition: color 0.3s ease;
 }
 
 .role-description {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #718096;
-  line-height: 1.5;
+  line-height: 1.4;
   transition: color 0.3s ease;
 }
 
 .selection-indicator {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 24px;
-  height: 24px;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #4f46e5;
   display: flex;
@@ -276,7 +276,7 @@ body {
 .selection-indicator::after {
   content: "✓";
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -284,14 +284,14 @@ body {
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   color: white;
   border: none;
-  padding: 15px 40px;
-  font-size: 1.1rem;
+  padding: 12px 35px;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: block;
-  margin: 0 auto 20px;
+  margin: 0 auto 15px;
   opacity: 0.5;
   pointer-events: none;
 }
@@ -303,7 +303,7 @@ body {
 
 .btn:hover.active {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
 }
 
 .btn:disabled {
@@ -318,8 +318,8 @@ body {
 
 .login-prompt {
   color: #718096;
-  font-size: 1rem;
-  margin-top: 20px;
+  font-size: 0.95rem;
+  margin-top: 15px;
 }
 
 .link {
@@ -336,14 +336,14 @@ body {
 .step-indicator {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .step {
-  width: 40px;
-  height: 4px;
+  width: 35px;
+  height: 3px;
   background: #e2e8f0;
-  margin: 0 5px;
+  margin: 0 4px;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -355,82 +355,86 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .radio-group {
-    grid-template-columns: 1fr;
-  }
-  
-  .role-heading {
-    font-size: 2rem;
-  }
-  
-  .signup-container {
-    padding: 30px 20px;
-  }
-  
-  .role-card {
-    padding: 25px 15px;
-  }
-  
-  .role-icon {
-    font-size: 2.5rem;
-  }
-  
-  .logo-text {
-    font-size: 2.2rem;
-  }
-  
-  .geometric-logo {
-    padding: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .signup-container {
-    padding: 20px 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   
   .role-heading {
     font-size: 1.75rem;
   }
   
-  .subtitle {
-    font-size: 1rem;
+  .signup-container {
+    padding: 20px 15px;
   }
   
-  .btn {
-    padding: 12px 30px;
-    font-size: 1rem;
+  .role-card {
+    padding: 15px 12px;
+  }
+  
+  .role-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
   }
   
   .logo-text {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
   
-  .triangle {
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 20px solid #4f46e5;
+  .geometric-logo {
+    padding: 12px;
   }
   
-  .hexagon {
-    width: 16px;
-    height: 9px;
-    margin: 4.5px 0;
+  .role-title {
+    font-size: 1rem;
   }
   
-  .hexagon:before {
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 4.5px solid #10b981;
+  .role-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 15px 12px;
   }
   
-  .hexagon:after {
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 4.5px solid #10b981;
+  .role-heading {
+    font-size: 1.5rem;
   }
   
-  .circle {
-    width: 10px;
-    height: 10px;
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 10px 25px;
+    font-size: 0.95rem;
+  }
+  
+  .logo-text {
+    font-size: 1.6rem;
+  }
+  
+  .radio-group {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .role-card {
+    padding: 12px 10px;
+  }
+  
+  .role-icon {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+  
+  .role-title {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+  
+  .role-description {
+    font-size: 0.75rem;
   }
 }
