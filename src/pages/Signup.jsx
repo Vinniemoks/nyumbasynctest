@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import apiService from '../api/api';
-// Assuming api.js exports relevant functions like 'signupUser'
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 function Signup() {
+  const navigate = useNavigate();
+  const { signup } = useAuth();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -10,11 +12,39 @@ function Signup() {
     confirmPassword: '',
     userType: 'tenant'
   });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log('Signup attempt:', formData);
+    
+    const newErrors = {};
+    if (!formData.fullName) newErrors.fullName = 'Full name is required';
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await signup({
+        name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        role: formData.userType
+      });
+      navigate(`/${formData.userType}-dashboard`);
+    } catch (error) {
+      setErrors({ submit: error.message || 'Signup failed. Please try again.' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -23,6 +53,9 @@ function Signup() {
       ...prev,
       [name]: value
     }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   return (
@@ -35,6 +68,12 @@ function Signup() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {errors.submit && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {errors.submit}
+            </div>
+          )}
+
           <div>
             <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
               Full Name
@@ -46,9 +85,10 @@ function Signup() {
               value={formData.fullName}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your full name"
             />
+            {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
           </div>
 
           <div>
@@ -62,9 +102,10 @@ function Signup() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your email"
             />
+            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
           </div>
 
           <div>
@@ -77,7 +118,7 @@ function Signup() {
               value={formData.userType}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="tenant">Tenant</option>
               <option value="landlord">Landlord</option>
@@ -96,9 +137,10 @@ function Signup() {
               value={formData.password}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Create a password"
             />
+            {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
           </div>
 
           <div>
@@ -112,23 +154,25 @@ function Signup() {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Confirm your password"
             />
+            {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
           </div>
 
           <button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            disabled={loading}
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Create Account
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-primary hover:text-secondary">
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
               Sign in
             </Link>
           </p>
