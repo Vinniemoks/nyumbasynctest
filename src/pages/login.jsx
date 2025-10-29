@@ -73,7 +73,7 @@ const Login = () => {
             {errors.identifier && <p className="mt-1 text-sm text-red-600">{errors.identifier}</p>}
           </div>
 
-          <div>
+    <div>
             <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
