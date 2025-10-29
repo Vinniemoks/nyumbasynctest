@@ -1,0 +1,13 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin/dashboard pages from search engines
+Disallow: /landlord-dashboard
+Disallow: /manager-dashboard
+Disallow: /tenant-dashboard
+Disallow: /login
+Disallow: /signup
+
+# Sitemap location
+Sitemap: https://nyumbasync.com/sitemap.xml
