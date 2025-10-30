@@ -129,16 +129,46 @@ VITE_ENVIRONMENT=development
 
 ## 📦 Build for Production
 
+### Quick Build
 ```bash
-npm run build
+npm run build:production
 ```
 
-The optimized build will be in the `dist/` folder.
+The optimized build will be in the `docs/` folder.
 
 ### Preview Production Build
 ```bash
 npm run preview
 ```
+
+### Full Production Deployment
+
+For complete production deployment with all configurations:
+
+**Quick Start:**
+```bash
+# Linux/Mac
+./scripts/deploy-production.sh
+
+# Windows
+scripts\deploy-production.bat
+```
+
+**Documentation:**
+- 📘 [Deployment Quick Start](DEPLOYMENT_QUICKSTART.md) - Get deployed in 2-4 hours
+- 📗 [Deployment Configuration](DEPLOYMENT_CONFIGURATION.md) - Detailed setup guide
+- 📋 [Production Readiness Checklist](PRODUCTION_READINESS_CHECKLIST.md) - Pre-deployment checklist
+- 📊 [Monitoring Setup](MONITORING_SETUP.md) - Error tracking and analytics
+
+**What's Included:**
+- ✅ Environment configuration for production
+- ✅ Payment gateway setup (M-Pesa, Airtel, Telkom, Stripe)
+- ✅ File storage configuration (AWS S3, Cloudinary)
+- ✅ WebSocket server configuration
+- ✅ Error tracking with Sentry
+- ✅ Analytics with Google Analytics
+- ✅ Performance monitoring
+- ✅ Security best practices
 
 ## 🏗️ Project Structure
 
