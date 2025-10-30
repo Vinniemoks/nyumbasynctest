@@ -7,6 +7,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyCode from './pages/VerifyCode';
+import ResetPassword from './pages/ResetPassword';
 import LandlordDashboard from './pages/LandlordDashboard';
 import PropertyManagerDashboard from './pages/PropertyManagerDashboard';
 import TenantDashboard from './pages/TenantDashboard';
@@ -22,6 +25,9 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/verify-code" element={<VerifyCode />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               
               <Route
                 path="/landlord-dashboard/*"
