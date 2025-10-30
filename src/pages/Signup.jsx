@@ -320,8 +320,8 @@ function Signup() {
                         type="button"
                         onClick={() => toggleArrayValue('specialization', spec)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${formData.specialization.includes(spec)
-                            ? 'bg-indigo-500 text-white'
-                            : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
+                          ? 'bg-indigo-500 text-white'
+                          : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
                           }`}
                       >
                         {spec}
@@ -381,8 +381,8 @@ function Signup() {
                         type="button"
                         onClick={() => toggleArrayValue('serviceType', service)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${formData.serviceType.includes(service)
-                            ? 'bg-indigo-500 text-white'
-                            : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
+                          ? 'bg-indigo-500 text-white'
+                          : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
                           }`}
                       >
                         {service}
