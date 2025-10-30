@@ -49,7 +49,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = 'First name is required';
     if (!formData.lastName) newErrors.lastName = 'Last name is required';
@@ -71,7 +71,7 @@ function Signup() {
       if (!formData.companyName) newErrors.companyName = 'Company name is required';
       if (formData.serviceType.length === 0) newErrors.serviceType = 'Select at least one service type';
     }
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -189,7 +189,7 @@ function Signup() {
               <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
                 Personal Information
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-white/80 mb-2">
@@ -276,7 +276,7 @@ function Signup() {
                 <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
                   Professional Information
                 </h3>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-white/80 mb-2">
@@ -319,11 +319,10 @@ function Signup() {
                         key={spec}
                         type="button"
                         onClick={() => toggleArrayValue('specialization', spec)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                          formData.specialization.includes(spec)
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${formData.specialization.includes(spec)
                             ? 'bg-indigo-500 text-white'
                             : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
-                        }`}
+                          }`}
                       >
                         {spec}
                       </button>
@@ -355,7 +354,7 @@ function Signup() {
                 <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
                   Business Information
                 </h3>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-white/80 mb-2">
                     Company Name *
@@ -381,11 +380,10 @@ function Signup() {
                         key={service}
                         type="button"
                         onClick={() => toggleArrayValue('serviceType', service)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                          formData.serviceType.includes(service)
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${formData.serviceType.includes(service)
                             ? 'bg-indigo-500 text-white'
                             : 'bg-slate-800/50 text-white/70 hover:bg-slate-800'
-                        }`}
+                          }`}
                       >
                         {service}
                       </button>
@@ -417,7 +415,7 @@ function Signup() {
               <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">
                 Security
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-white/80 mb-2">

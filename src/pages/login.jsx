@@ -46,62 +46,96 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
+      {/* Background effects */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute top-1/2 right-0 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="absolute bottom-0 left-1/2 h-80 w-80 -translate-x-1/2 translate-y-1/2 rounded-full bg-indigo-500/20 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
+          <Link to="/" className="inline-flex items-center gap-3 text-2xl font-semibold mb-6">
+            <img src="/images/logo.png" alt="NyumbaSync" className="h-12 w-12 rounded-full bg-white/10 p-1" />
+            NyumbaSync
+          </Link>
+          <h2 className="text-3xl font-bold mt-4">Welcome Back</h2>
+          <p className="text-white/70 mt-2">Sign in to your account</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {errors.submit && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-              {errors.submit}
+        <div className="rounded-2xl border border-white/10 bg-slate-900/40 backdrop-blur p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {errors.submit && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg">
+                {errors.submit}
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Email or Phone
+              </label>
+              <input
+                type="text"
+                name="identifier"
+                value={formData.identifier}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                placeholder="example@email.com or +254 700 123456"
+              />
+              {errors.identifier && <p className="mt-2 text-sm text-red-400">{errors.identifier}</p>}
             </div>
-          )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email or Phone</label>
-            <input
-              type="text"
-              name="identifier"
-              value={formData.identifier}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="example@email.com"
-            />
-            {errors.identifier && <p className="mt-1 text-sm text-red-600">{errors.identifier}</p>}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-white/80">
+                  Password
+                </label>
+                <Link to="/forgot-password" className="text-sm text-indigo-400 hover:text-indigo-300">
+                  Forgot password?
+                </Link>
+              </div>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
+                placeholder="••••••••"
+              />
+              {errors.password && <p className="mt-2 text-sm text-red-400">{errors.password}</p>}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 px-4 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/30 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-white/60">
+              Don't have an account?{' '}
+              <Link to="/signup" className="font-medium text-indigo-400 hover:text-indigo-300">
+                Sign up
+              </Link>
+            </p>
           </div>
 
-    <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="••••••••"
-            />
-            {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+          {/* Quick role selection hint */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <p className="text-xs text-white/50 text-center mb-3">Sign in as:</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-white/60">🏠 Tenant</span>
+              <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-white/60">🏢 Landlord</span>
+              <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-white/60">💼 Agent</span>
+              <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-white/60">📋 Manager</span>
+              <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-white/60">🔧 Vendor</span>
+            </div>
           </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
-              Sign up
-            </Link>
-          </p>
         </div>
       </div>
     </div>
