@@ -13,6 +13,8 @@ import ResetPassword from './pages/ResetPassword';
 import LandlordDashboard from './pages/LandlordDashboard';
 import PropertyManagerDashboard from './pages/PropertyManagerDashboard';
 import TenantDashboard from './pages/TenantDashboard';
+import AgentDashboard from './pages/AgentDashboard';
+import VendorDashboard from './pages/VendorDashboard';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -52,6 +54,24 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['tenant']}>
                     <TenantDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/agent-dashboard/*"
+                element={
+                  <ProtectedRoute allowedRoles={['agent']}>
+                    <AgentDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/vendor-dashboard/*"
+                element={
+                  <ProtectedRoute allowedRoles={['vendor']}>
+                    <VendorDashboard />
                   </ProtectedRoute>
                 }
               />
