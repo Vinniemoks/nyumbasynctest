@@ -2,6 +2,46 @@
 
 This directory contains scripts for deploying the NyumbaSync Tenant Portal to various environments.
 
+## Installation Scripts
+
+Before deploying, you need to install the application. Use these scripts located in the project root:
+
+### Quick Installation
+
+**Windows:**
+```bash
+quick-install.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x quick-install.sh
+./quick-install.sh
+```
+
+### Full Installation (Recommended)
+
+**Windows:**
+```bash
+install.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+The full installation script:
+- Checks system requirements
+- Cleans previous installations
+- Installs all dependencies
+- Configures environment files
+- Verifies the installation
+- Displays available commands
+
+For detailed installation instructions, see [INSTALLATION.md](../INSTALLATION.md)
+
 ## Available Scripts
 
 ### `check-env.js`

@@ -49,7 +49,28 @@ NyumbaSync is a comprehensive property management platform built with React that
 - npm or yarn
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
-### Installation
+### Quick Installation
+
+**Windows:**
+```bash
+setup.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+The setup script will:
+- ✅ Check system requirements (Node.js, npm)
+- ✅ Clean previous installations
+- ✅ Install all dependencies
+- ✅ Configure environment files
+- ✅ Verify installation
+- ✅ Run initial tests
+
+**Manual Installation:**
 
 1. **Clone the repository**
 ```bash
@@ -62,13 +83,22 @@ cd nyumbasynctest
 npm install
 ```
 
-3. **Start development server**
+3. **Configure environment**
+```bash
+# Copy example environment file
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+4. **Start development server**
 ```bash
 npm run dev
 ```
 
-4. **Open your browser**
+5. **Open your browser**
 Navigate to `http://localhost:5173`
+
+For detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md)
 
 ### Quick Test
 1. Click "Sign up" and create an account
