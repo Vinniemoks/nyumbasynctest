@@ -823,7 +823,11 @@
     - Add descriptive labels for form fields
     - _Requirements: All requirements need screen reader support_
 
-- [ ] 24. Write unit tests for core functionality
+- [x] 24. Write unit tests for core functionality
+
+
+
+
 
 
 
