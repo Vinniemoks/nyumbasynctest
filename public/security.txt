@@ -1,0 +1,8 @@
+Contact: security@nyumbasync.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://mokuavinnie.tech/.well-known/security.txt
+
+# Security Policy
+# If you discover a security vulnerability, please report it to security@nyumbasync.com
+# We appreciate responsible disclosure and will respond within 48 hours.

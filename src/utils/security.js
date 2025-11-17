@@ -123,25 +123,80 @@ export class RateLimiter {
 }
 
 /**
- * Secure storage wrapper
+ * Secure storage wrapper with encryption
+ * Note: For production, consider using httpOnly cookies for sensitive tokens
  */
 export const secureStorage = {
-  set: (key, value) => {
+  // Simple encryption key derivation (in production, use a proper key management system)
+  _getKey: () => {
+    const userAgent = navigator.userAgent;
+    const timestamp = Math.floor(Date.now() / (1000 * 60 * 60 * 24)); // Changes daily
+    return btoa(userAgent + timestamp).substring(0, 32);
+  },
+
+  // XOR encryption (basic obfuscation - not cryptographically secure)
+  _encrypt: (text, key) => {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return btoa(result);
+  },
+
+  _decrypt: (encrypted, key) => {
     try {
-      const encrypted = btoa(JSON.stringify(value));
-      localStorage.setItem(key, encrypted);
+      const text = atob(encrypted);
+      let result = '';
+      for (let i = 0; i < text.length; i++) {
+        result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+      }
+      return result;
+    } catch {
+      return null;
+    }
+  },
+
+  set: (key, value, options = {}) => {
+    try {
+      const { encrypt = true, expiresIn = null } = options;
+      const data = {
+        value,
+        timestamp: Date.now(),
+        expiresAt: expiresIn ? Date.now() + expiresIn : null
+      };
+      
+      const serialized = JSON.stringify(data);
+      const stored = encrypt ? secureStorage._encrypt(serialized, secureStorage._getKey()) : btoa(serialized);
+      
+      localStorage.setItem(key, stored);
+      return true;
     } catch (error) {
-      console.error('Storage error:', error);
+      if (error.name === 'QuotaExceededError') {
+        console.warn('Storage quota exceeded');
+      }
+      return false;
     }
   },
   
-  get: (key) => {
+  get: (key, options = {}) => {
     try {
-      const encrypted = localStorage.getItem(key);
-      if (!encrypted) return null;
-      return JSON.parse(atob(encrypted));
+      const { decrypt = true } = options;
+      const stored = localStorage.getItem(key);
+      if (!stored) return null;
+      
+      const serialized = decrypt ? secureStorage._decrypt(stored, secureStorage._getKey()) : atob(stored);
+      if (!serialized) return null;
+      
+      const data = JSON.parse(serialized);
+      
+      // Check expiration
+      if (data.expiresAt && Date.now() > data.expiresAt) {
+        secureStorage.remove(key);
+        return null;
+      }
+      
+      return data.value;
     } catch (error) {
-      console.error('Storage error:', error);
       return null;
     }
   },
@@ -152,5 +207,111 @@ export const secureStorage = {
   
   clear: () => {
     localStorage.clear();
+  },
+
+  // Check if storage is available
+  isAvailable: () => {
+    try {
+      const test = '__storage_test__';
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+};
+
+/**
+ * Token management with automatic expiration
+ */
+export class TokenManager {
+  constructor() {
+    this.TOKEN_KEY = 'auth_token';
+    this.REFRESH_TOKEN_KEY = 'refresh_token';
+    this.TOKEN_EXPIRY_KEY = 'token_expiry';
+  }
+
+  setToken(token, expiresIn = 3600000) { // Default 1 hour
+    const expiryTime = Date.now() + expiresIn;
+    secureStorage.set(this.TOKEN_KEY, token, { expiresIn });
+    secureStorage.set(this.TOKEN_EXPIRY_KEY, expiryTime, { encrypt: false });
+  }
+
+  getToken() {
+    const token = secureStorage.get(this.TOKEN_KEY);
+    if (!token) return null;
+
+    // Check if token is expired
+    if (this.isTokenExpired()) {
+      this.clearTokens();
+      return null;
+    }
+
+    return token;
+  }
+
+  setRefreshToken(refreshToken) {
+    secureStorage.set(this.REFRESH_TOKEN_KEY, refreshToken, { expiresIn: 604800000 }); // 7 days
+  }
+
+  getRefreshToken() {
+    return secureStorage.get(this.REFRESH_TOKEN_KEY);
+  }
+
+  isTokenExpired() {
+    const expiry = secureStorage.get(this.TOKEN_EXPIRY_KEY, { decrypt: false });
+    if (!expiry) return true;
+    return Date.now() > expiry;
+  }
+
+  getTimeUntilExpiry() {
+    const expiry = secureStorage.get(this.TOKEN_EXPIRY_KEY, { decrypt: false });
+    if (!expiry) return 0;
+    return Math.max(0, expiry - Date.now());
+  }
+
+  clearTokens() {
+    secureStorage.remove(this.TOKEN_KEY);
+    secureStorage.remove(this.REFRESH_TOKEN_KEY);
+    secureStorage.remove(this.TOKEN_EXPIRY_KEY);
+  }
+}
+
+/**
+ * Enhanced input validation
+ */
+export const validateInput = {
+  // Prevent SQL injection patterns
+  isSQLSafe: (input) => {
+    const sqlPatterns = /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|EXECUTE|UNION|DECLARE)\b)|(-{2})|(\*\/)|(\bOR\b.*=.*)|(\bAND\b.*=.*)/gi;
+    return !sqlPatterns.test(input);
+  },
+
+  // Prevent XSS patterns
+  isXSSSafe: (input) => {
+    const xssPatterns = /<script|javascript:|onerror=|onload=|<iframe|eval\(|expression\(/gi;
+    return !xssPatterns.test(input);
+  },
+
+  // Validate URL
+  isValidURL: (url) => {
+    try {
+      const parsed = new URL(url);
+      return ['http:', 'https:'].includes(parsed.protocol);
+    } catch {
+      return false;
+    }
+  },
+
+  // Sanitize filename
+  sanitizeFilename: (filename) => {
+    return filename.replace(/[^a-zA-Z0-9._-]/g, '_').substring(0, 255);
+  },
+
+  // Validate amount (for payments)
+  isValidAmount: (amount) => {
+    const num = parseFloat(amount);
+    return !isNaN(num) && num > 0 && num < 10000000 && /^\d+(\.\d{1,2})?$/.test(amount.toString());
   }
 };

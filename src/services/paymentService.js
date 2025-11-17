@@ -1,35 +1,107 @@
 import axios from 'axios';
+import { validateInput, RateLimiter } from '../utils/security';
+import { auditLogger } from '../utils/auditLogger';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
-// Mock mode for development
-const USE_MOCK = true;
+// Mock mode for development - controlled by environment variable
+const USE_MOCK = import.meta.env.VITE_ENABLE_MOCK_DATA === 'true';
+
+// Rate limiter for payment requests (max 5 per minute per user)
+const paymentRateLimiter = new RateLimiter(5, 60000);
 
 // Mock delay helper
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const paymentService = {
-  // M-Pesa STK Push
-  initiateMpesaPayment: async (phoneNumber, amount, accountReference) => {
-    if (USE_MOCK) {
-      await delay(1000);
-      return {
-        success: true,
-        transactionId: `MPESA${Date.now()}`,
-        message: 'STK push sent successfully',
-        status: 'pending',
-      };
+  // Validate payment inputs
+  _validatePaymentInput: (phoneNumber, amount, accountReference) => {
+    // Validate amount
+    if (!validateInput.isValidAmount(amount)) {
+      throw new Error('Invalid payment amount');
     }
-    const { data } = await axios.post(`${API_URL}/payments/mpesa/stk-push`, {
-      phoneNumber,
-      amount,
-      accountReference,
-    });
-    return data;
+
+    // Validate phone number format
+    const phoneRegex = /^(\+254|0)[17]\d{8}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      throw new Error('Invalid phone number format');
+    }
+
+    // Validate account reference
+    if (!accountReference || accountReference.length < 3 || accountReference.length > 50) {
+      throw new Error('Invalid account reference');
+    }
+
+    // Check for SQL injection attempts
+    if (!validateInput.isSQLSafe(accountReference)) {
+      throw new Error('Invalid characters in account reference');
+    }
+
+    return true;
+  },
+
+  // Check rate limit
+  _checkRateLimit: (userId) => {
+    if (!paymentRateLimiter.isAllowed(userId)) {
+      throw new Error('Too many payment requests. Please try again later.');
+    }
+  },
+
+  // M-Pesa STK Push
+  initiateMpesaPayment: async (phoneNumber, amount, accountReference, userId = 'anonymous') => {
+    try {
+      // Validate inputs
+      paymentService._validatePaymentInput(phoneNumber, amount, accountReference);
+      
+      // Check rate limit
+      paymentService._checkRateLimit(userId);
+
+      // Audit log
+      auditLogger.logPayment('mpesa_initiated', {
+        userId,
+        amount: parseFloat(amount).toFixed(2),
+        accountReference,
+        phoneNumber: phoneNumber.substring(0, 7) + '***' // Mask phone number
+      });
+
+      if (USE_MOCK) {
+        await delay(1000);
+        return {
+          success: true,
+          transactionId: `MPESA${Date.now()}`,
+          message: 'STK push sent successfully',
+          status: 'pending',
+        };
+      }
+      const { data } = await axios.post(`${API_URL}/payments/mpesa/stk-push`, {
+        phoneNumber,
+        amount: parseFloat(amount).toFixed(2),
+        accountReference,
+      });
+      
+      auditLogger.logPayment('mpesa_success', {
+        userId,
+        transactionId: data.transactionId
+      });
+      
+      return data;
+    } catch (error) {
+      auditLogger.logPayment('mpesa_failed', {
+        userId,
+        error: error.message
+      });
+      throw error;
+    }
   },
 
   // Airtel Money STK Push
-  initiateAirtelPayment: async (phoneNumber, amount, accountReference) => {
+  initiateAirtelPayment: async (phoneNumber, amount, accountReference, userId = 'anonymous') => {
+    // Validate inputs
+    paymentService._validatePaymentInput(phoneNumber, amount, accountReference);
+    
+    // Check rate limit
+    paymentService._checkRateLimit(userId);
+
     if (USE_MOCK) {
       await delay(1000);
       return {
@@ -41,14 +113,20 @@ export const paymentService = {
     }
     const { data } = await axios.post(`${API_URL}/payments/airtel/stk-push`, {
       phoneNumber,
-      amount,
+      amount: parseFloat(amount).toFixed(2),
       accountReference,
     });
     return data;
   },
 
   // Telkom Money STK Push
-  initiateTelkomPayment: async (phoneNumber, amount, accountReference) => {
+  initiateTelkomPayment: async (phoneNumber, amount, accountReference, userId = 'anonymous') => {
+    // Validate inputs
+    paymentService._validatePaymentInput(phoneNumber, amount, accountReference);
+    
+    // Check rate limit
+    paymentService._checkRateLimit(userId);
+
     if (USE_MOCK) {
       await delay(1000);
       return {
@@ -60,14 +138,25 @@ export const paymentService = {
     }
     const { data } = await axios.post(`${API_URL}/payments/telkom/stk-push`, {
       phoneNumber,
-      amount,
+      amount: parseFloat(amount).toFixed(2),
       accountReference,
     });
     return data;
   },
 
   // Card Payment
-  processCardPayment: async (cardToken, amount, accountReference) => {
+  processCardPayment: async (cardToken, amount, accountReference, userId = 'anonymous') => {
+    // Validate amount and account reference
+    if (!validateInput.isValidAmount(amount)) {
+      throw new Error('Invalid payment amount');
+    }
+    if (!accountReference || !validateInput.isSQLSafe(accountReference)) {
+      throw new Error('Invalid account reference');
+    }
+
+    // Check rate limit
+    paymentService._checkRateLimit(userId);
+
     if (USE_MOCK) {
       await delay(2000);
       return {
@@ -79,7 +168,7 @@ export const paymentService = {
     }
     const { data } = await axios.post(`${API_URL}/payments/card/process`, {
       cardToken,
-      amount,
+      amount: parseFloat(amount).toFixed(2),
       accountReference,
     });
     return data;

@@ -1,13 +1,21 @@
-# Allow all crawlers
+# Robots.txt for NyumbaSync
+# https://www.robotstxt.org/robotstxt.html
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*-dashboard
+Disallow: /tenant-dashboard/
+Disallow: /landlord-dashboard/
+Disallow: /agent-dashboard/
+Disallow: /vendor-dashboard/
+Disallow: /property-manager-dashboard/
 
-# Disallow admin/dashboard pages from search engines
-Disallow: /landlord-dashboard
-Disallow: /manager-dashboard
-Disallow: /tenant-dashboard
-Disallow: /login
-Disallow: /signup
+# Sitemap
+Sitemap: https://mokuavinnie.tech/sitemap.xml
 
-# Sitemap location
-Sitemap: https://nyumbasync.com/sitemap.xml
+# Security
+Disallow: /.env
+Disallow: /config/
+Disallow: /private/
