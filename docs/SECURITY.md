@@ -1,9 +1,5 @@
 # Security Policy
 
-**Security Grade: A+ (10/10)** ⭐⭐⭐⭐⭐
-
-For detailed security documentation, see [docs/SECURITY.md](./docs/SECURITY.md)
-
 ## Supported Versions
 
 | Version | Supported          |

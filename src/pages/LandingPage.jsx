@@ -309,6 +309,10 @@ function LandingPage() {
             <Link to="/signup" className="transition hover:text-white">
               Sign up
             </Link>
+            <Link to="/admin-login" className="transition hover:text-indigo-400">
+              <i className="fas fa-shield-alt mr-1"></i>
+              Admin
+            </Link>
           </div>
         </div>
       </footer>

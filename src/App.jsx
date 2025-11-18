@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './components/Toast';
 import ErrorBoundary from './components/ErrorBoundary';
 import ProtectedRoute from './components/ProtectedRoute';
+import { isAdminRole } from './config/adminRoles';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -15,6 +16,8 @@ import PropertyManagerDashboard from './pages/PropertyManagerDashboard';
 import TenantDashboard from './pages/TenantDashboard';
 import AgentDashboard from './pages/AgentDashboard';
 import VendorDashboard from './pages/VendorDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/verify-code" element={<VerifyCode />} />
@@ -72,6 +76,15 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['vendor']}>
                     <VendorDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/admin-dashboard/*"
+                element={
+                  <ProtectedRoute allowedRoles={['super_admin', 'admin', 'support_admin', 'finance_admin', 'operations_admin', 'viewer']}>
+                    <AdminDashboard />
                   </ProtectedRoute>
                 }
               />

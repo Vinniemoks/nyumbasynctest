@@ -35,26 +35,65 @@ export const isValidPhone = (phone) => {
 };
 
 /**
- * Check password strength
+ * Check password strength - Grade A Level for Admins
  */
-export const checkPasswordStrength = (password) => {
+export const checkPasswordStrength = (password, isAdmin = false) => {
   let strength = 0;
   const checks = {
-    length: password.length >= 8,
+    length: password.length >= (isAdmin ? 12 : 8),
+    minLength: password.length >= (isAdmin ? 12 : 8),
     lowercase: /[a-z]/.test(password),
     uppercase: /[A-Z]/.test(password),
     number: /[0-9]/.test(password),
     special: /[^A-Za-z0-9]/.test(password),
+    noCommonPatterns: !/(password|admin|12345|qwerty|abc123)/i.test(password),
+    noRepeating: !/(.)\1{2,}/.test(password), // No 3+ repeating chars
+    noSequential: !/(abc|bcd|cde|123|234|345|456|567|678|789)/i.test(password)
   };
 
+  // Admin requirements (stricter)
+  if (isAdmin) {
+    const adminChecks = {
+      ...checks,
+      minUppercase: (password.match(/[A-Z]/g) || []).length >= 2,
+      minLowercase: (password.match(/[a-z]/g) || []).length >= 2,
+      minNumbers: (password.match(/[0-9]/g) || []).length >= 2,
+      minSpecial: (password.match(/[^A-Za-z0-9]/g) || []).length >= 2,
+      maxLength: password.length <= 128
+    };
+    
+    Object.values(adminChecks).forEach(check => {
+      if (check) strength += 100 / Object.keys(adminChecks).length;
+    });
+    
+    return {
+      score: Math.round(strength),
+      level: strength < 60 ? 'weak' : strength < 85 ? 'medium' : 'strong',
+      checks: adminChecks,
+      isValid: strength >= 85, // Admin passwords must be "strong"
+      requirements: {
+        minLength: 12,
+        uppercase: 2,
+        lowercase: 2,
+        numbers: 2,
+        special: 2,
+        noCommonPatterns: true,
+        noRepeating: true,
+        noSequential: true
+      }
+    };
+  }
+
+  // Regular user requirements
   Object.values(checks).forEach(check => {
-    if (check) strength += 20;
+    if (check) strength += 100 / Object.keys(checks).length;
   });
 
   return {
-    score: strength,
+    score: Math.round(strength),
     level: strength < 40 ? 'weak' : strength < 70 ? 'medium' : 'strong',
-    checks
+    checks,
+    isValid: strength >= 70
   };
 };
 
