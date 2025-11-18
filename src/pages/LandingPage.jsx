@@ -80,6 +80,14 @@ const LandingPage = () => {
             </div>
             <div className="flex space-x-4">
               <button
+                onClick={() => navigate('/admin-login')}
+                className="px-4 py-2 text-amber-400 hover:text-amber-300 border border-amber-400/50 hover:border-amber-300 rounded-lg transition flex items-center gap-2"
+                title="Admin Login"
+              >
+                <i className="fas fa-shield-alt"></i>
+                Admin
+              </button>
+              <button
                 onClick={() => navigate('/login')}
                 className="px-4 py-2 text-white/80 hover:text-white transition"
               >
