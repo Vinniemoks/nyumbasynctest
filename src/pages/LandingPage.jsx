@@ -1,323 +1,262 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-const stats = [
-  { label: 'Properties Managed', value: '2,500+' },
-  { label: 'Rent Collected Monthly', value: '$4.2M' },
-  { label: 'Maintenance Tickets Resolved', value: '18k+' },
-  { label: 'Average Response Time', value: '<4 hrs' },
-];
+const LandingPage = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
-const features = [
-  {
-    title: 'Unified Property Dashboard',
-    description: 'Monitor occupancy, rent collection and maintenance KPIs from a single command center built for modern portfolios.',
-    image: '/images/feature1-icon.png',
-  },
-  {
-    title: 'Automated Rent Collection',
-    description: 'Flexible payment schedules, instant reminders, late-fee automation and reconciliation that keeps your books accurate.',
-    image: '/images/feature2-icon.png',
-  },
-  {
-    title: 'Tenant & Vendor Portals',
-    description: 'Give tenants and contractors the tools they need to collaborate, submit requests and track progress in real-time.',
-    image: '/images/feature3-icon.png',
-  },
-];
+  React.useEffect(() => {
+    if (user) {
+      const roleRoutes = {
+        landlord: '/landlord-dashboard',
+        manager: '/manager-dashboard',
+        tenant: '/tenant-dashboard',
+        agent: '/agent-dashboard',
+        vendor: '/vendor-dashboard',
+        admin: '/admin-dashboard'
+      };
+      navigate(roleRoutes[user.role] || '/');
+    }
+  }, [user, navigate]);
 
-const workflowSteps = [
-  {
-    title: 'Onboard in Minutes',
-    description: 'Import existing units, leases and stakeholders with guided checklists and smart defaults.',
-  },
-  {
-    title: 'Engage Your Tenants',
-    description: 'Launch branded portals, send invitations and keep everyone aligned with automated messaging.',
-  },
-  {
-    title: 'Scale with Insights',
-    description: 'Drill into performance trends, forecast revenue and identify inefficiencies before they grow.',
-  },
-];
+  const features = [
+    {
+      icon: 'fa-home',
+      title: 'Property Management',
+      description: 'Manage multiple properties, units, and tenants from one dashboard'
+    },
+    {
+      icon: 'fa-money-bill-wave',
+      title: 'Payment Processing',
+      description: 'Accept rent payments via M-Pesa, cards, and bank transfers'
+    },
+    {
+      icon: 'fa-tools',
+      title: 'Maintenance Tracking',
+      description: 'Track and manage maintenance requests efficiently'
+    },
+    {
+      icon: 'fa-chart-line',
+      title: 'Financial Reports',
+      description: 'Comprehensive analytics and financial reporting'
+    },
+    {
+      icon: 'fa-shield-alt',
+      title: 'Secure & Compliant',
+      description: 'Grade A+ security with MFA and audit logging'
+    },
+    {
+      icon: 'fa-mobile-alt',
+      title: 'Mobile Friendly',
+      description: 'Access your dashboard from any device, anywhere'
+    }
+  ];
 
-const testimonials = [
-  {
-    quote:
-      '“NyumbaSync centralised our scattered spreadsheets into one live system. Maintenance SLAs improved by 43% within the first quarter.”',
-    name: 'Cynthia Waweru',
-    role: 'Director of Operations, Prime Dwellings',
-  },
-  {
-    quote:
-      '“The automated rent reminders and digital receipts freed up two full-time roles. Our tenants love the transparency.”',
-    name: 'Michael Otieno',
-    role: 'Managing Partner, UrbanNest Properties',
-  },
-];
+  const userTypes = [
+    {
+      title: 'Landlords',
+      description: 'Manage your properties, track income, and communicate with tenants',
+      icon: 'fa-building',
+      color: 'blue'
+    },
+    {
+      title: 'Property Managers',
+      description: 'Professional tools for managing multiple properties and clients',
+      icon: 'fa-briefcase',
+      color: 'purple'
+    },
+    {
+      title: 'Tenants',
+      description: 'Pay rent, submit maintenance requests, and manage your lease',
+      icon: 'fa-house-user',
+      color: 'green'
+    },
+    {
+      title: 'Agents',
+      description: 'List properties, manage leads, and close deals faster',
+      icon: 'fa-handshake',
+      color: 'orange'
+    }
+  ];
 
-const faqs = [
-  {
-    question: 'Is NyumbaSync suitable for mixed portfolios?',
-    answer:
-      'Absolutely. Manage residential, commercial and short-let units side-by-side with custom reporting per asset class.',
-  },
-  {
-    question: 'How long does implementation take?',
-    answer:
-      'Most teams go live in under two weeks. Our concierge onboarding imports your historical data and trains your staff.',
-  },
-  {
-    question: 'Can tenants pay with mobile money?',
-    answer:
-      'Yes. Accept M-Pesa, cards and bank transfers with automatic ledger reconciliation and instant receipts.',
-  },
-];
-
-function LandingPage() {
   return (
-    <div className="relative min-h-screen bg-slate-950 text-white">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-purple-500/20 blur-3xl" />
-        <div className="absolute top-1/2 right-0 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="absolute bottom-0 left-1/2 h-80 w-80 -translate-x-1/2 translate-y-1/2 rounded-full bg-indigo-500/20 blur-3xl" />
-      </div>
-
-      <header className="relative z-10 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6">
-          <Link to="/" className="flex items-center gap-3 text-xl font-semibold tracking-tight">
-            <img src="/images/logo.png" alt="NyumbaSync" className="h-10 w-10 rounded-full bg-white/10 p-1" />
-            NyumbaSync
-          </Link>
-
-          <nav className="flex items-center gap-10 text-sm font-medium text-white/70">
-            <a href="#features" className="transition hover:text-white">
-              Product
-            </a>
-            <a href="#workflow" className="transition hover:text-white">
-              How it works
-            </a>
-            <a href="#testimonials" className="transition hover:text-white">
-              Success stories
-            </a>
-            <a href="#faq" className="transition hover:text-white">
-              FAQ
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="rounded-lg px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Sign in
-            </Link>
-            <Link
-              to="/signup"
-              className="rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
-            >
-              Get started
-            </Link>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <i className="fas fa-home text-blue-600 text-2xl mr-2"></i>
+              <span className="text-2xl font-bold text-gray-900">NyumbaSync</span>
+            </div>
+            <div className="flex space-x-4">
+              <button
+                onClick={() => navigate('/login')}
+                className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate('/signup')}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Get Started
+              </button>
+            </div>
           </div>
         </div>
-      </header>
+      </nav>
 
-      <main className="relative z-10">
-        <section className="mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-16 pt-24 lg:flex-row lg:items-center">
-          <div className="max-w-xl space-y-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-200">
-              Property operations reimagined
-            </span>
-            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl">
-              Grow your property portfolio with intelligent automation and human-friendly tools.
-            </h1>
-            <p className="text-lg text-white/70">
-              NyumbaSync powers landlords, property managers and tenant communities with a single platform for rent collection,
-              maintenance, compliance and reporting — available on web and mobile.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center rounded-lg bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-400"
-              >
-                Create free account
-              </Link>
-              <Link
-                to="/login"
-                className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                View dashboards
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl font-semibold text-white">{stat.value}</p>
-                  <p className="text-xs uppercase tracking-wide text-white/60">{stat.label}</p>
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            Modern Property Management
+            <span className="block text-blue-600 mt-2">Made Simple</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Streamline your property management with our all-in-one platform. 
+            Manage properties, collect rent, track maintenance, and more.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => navigate('/signup')}
+              className="px-8 py-4 bg-blue-600 text-white text-lg rounded-lg hover:bg-blue-700 transition"
+            >
+              Start Free Trial
+            </button>
+            <button
+              onClick={() => navigate('/login')}
+              className="px-8 py-4 bg-white text-blue-600 text-lg rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition"
+            >
+              Watch Demo
+            </button>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-20">
+          <div className="text-center">
+            <div className="text-4xl font-bold text-blue-600">10K+</div>
+            <div className="text-gray-600 mt-2">Properties Managed</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-blue-600">50K+</div>
+            <div className="text-gray-600 mt-2">Active Users</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-blue-600">KSh 2B+</div>
+            <div className="text-gray-600 mt-2">Rent Processed</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-blue-600">99.9%</div>
+            <div className="text-gray-600 mt-2">Uptime</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Everything You Need</h2>
+            <p className="text-xl text-gray-600">Powerful features to manage your properties efficiently</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="p-6 border rounded-lg hover:shadow-lg transition">
+                <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <i className={`fas ${feature.icon} text-blue-600 text-xl`}></i>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-white/10 shadow-2xl shadow-indigo-500/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/60 via-purple-500/40 to-cyan-400/30" />
-            <img src="/images/hero-image.jpg" alt="Dashboard preview" className="relative h-full w-full object-cover mix-blend-luminosity" />
-            <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/20 bg-slate-950/80 p-6">
-              <p className="text-sm font-semibold text-white">Live occupancy overview</p>
-              <p className="mt-2 text-xs text-white/60">
-                Track rent status, maintenance load and tenant communications with zero spreadsheets.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="features" className="bg-slate-900/60">
-          <div className="mx-auto max-w-6xl px-6 py-20">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-semibold text-white sm:text-4xl">Everything your team needs in one workspace</h2>
-              <p className="mt-4 text-base text-white/70">
-                Replace point solutions with a connected ecosystem that keeps finance, operations and customer experience in sync.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-10 md:grid-cols-3">
-              {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="group h-full rounded-3xl border border-white/10 bg-slate-950/40 p-8 transition hover:-translate-y-2 hover:border-indigo-400/60 hover:bg-slate-900/70"
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500/20">
-                    <img src={feature.image} alt="" className="h-10 w-10" />
-                  </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">{feature.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/70">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="workflow" className="mx-auto max-w-6xl px-6 py-20">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div className="space-y-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-indigo-200">
-                Seamless workflow
-              </span>
-              <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-                From tenant application to renewals — run it all without leaving NyumbaSync.
-              </h2>
-              <p className="text-base text-white/70">
-                Guided workflows keep your team aligned, automate approvals and surface insights the moment they matter.
-              </p>
-            </div>
-
-            <div className="grid gap-6">
-              {workflowSteps.map((step, index) => (
-                <div key={step.title} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-slate-900/40 p-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20 text-sm font-semibold text-indigo-200">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm text-white/70">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="testimonials" className="bg-slate-900/60">
-          <div className="mx-auto max-w-6xl px-6 py-20">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-semibold text-white sm:text-4xl">Trusted by high-performing property teams</h2>
-              <p className="mt-3 text-base text-white/70">
-                See how NyumbaSync accelerates growth for landlords, REITs and property managers across Africa.
-              </p>
-            </div>
-
-            <div className="mt-16 grid gap-8 md:grid-cols-2">
-              {testimonials.map((testimonial) => (
-                <figure
-                  key={testimonial.name}
-                  className="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-slate-950/50 p-8 shadow-xl shadow-indigo-500/10"
-                >
-                  <blockquote className="text-left text-lg italic text-white/80">{testimonial.quote}</blockquote>
-                  <figcaption className="mt-6 text-left">
-                    <p className="text-sm font-semibold text-white">{testimonial.name}</p>
-                    <p className="text-xs text-white/60">{testimonial.role}</p>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="faq" className="mx-auto max-w-6xl px-6 py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Frequently asked questions</h2>
-            <p className="mt-3 text-base text-white/70">
-              Everything you need to know about using NyumbaSync as your property operations backbone.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-6">
-            {faqs.map((faq) => (
-              <div key={faq.question} className="rounded-2xl border border-white/10 bg-slate-900/40 p-6 text-left">
-                <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
-                <p className="mt-2 text-sm text-white/70">{faq.answer}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </div>
 
-        <section className="relative overflow-hidden py-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-cyan-500/20" />
-          <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 rounded-[2.5rem] border border-white/10 bg-slate-950/80 p-12 text-center">
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Ready to modernise your property operations?</h2>
-            <p className="max-w-2xl text-base text-white/70">
-              Start with a 14-day pilot sandbox. Invite your team, automate your first workflows and access expert onboarding at no cost.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center rounded-lg bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-400"
-              >
-                Launch pilot
-              </Link>
-              <a
-                href="mailto:hello@nyumbasync.com"
-                className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Talk to sales
-              </a>
+      {/* User Types Section */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Built For Everyone</h2>
+            <p className="text-xl text-gray-600">Solutions tailored to your role</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {userTypes.map((type, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+                <div className={`h-16 w-16 bg-${type.color}-100 rounded-full flex items-center justify-center mb-4`}>
+                  <i className={`fas ${type.icon} text-${type.color}-600 text-2xl`}></i>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{type.title}</h3>
+                <p className="text-gray-600">{type.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-blue-600 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Join thousands of property managers who trust NyumbaSync
+          </p>
+          <button
+            onClick={() => navigate('/signup')}
+            className="px-8 py-4 bg-white text-blue-600 text-lg rounded-lg hover:bg-gray-100 transition"
+          >
+            Start Your Free Trial
+          </button>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <i className="fas fa-home text-2xl mr-2"></i>
+                <span className="text-xl font-bold">NyumbaSync</span>
+              </div>
+              <p className="text-gray-400">Modern property management made simple</p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white">Features</a></li>
+                <li><a href="#" className="hover:text-white">Pricing</a></li>
+                <li><a href="#" className="hover:text-white">Security</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white">About</a></li>
+                <li><a href="#" className="hover:text-white">Blog</a></li>
+                <li><a href="#" className="hover:text-white">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white">Help Center</a></li>
+                <li><a href="#" className="hover:text-white">Contact</a></li>
+                <li><a href="#" className="hover:text-white">Status</a></li>
+              </ul>
             </div>
           </div>
-        </section>
-      </main>
-
-      <footer className="relative z-10 border-t border-white/10 bg-slate-950/80">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} NyumbaSync. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="mailto:hello@nyumbasync.com" className="transition hover:text-white">
-              hello@nyumbasync.com
-            </a>
-            <Link to="/login" className="transition hover:text-white">
-              Login
-            </Link>
-            <Link to="/signup" className="transition hover:text-white">
-              Sign up
-            </Link>
-            <Link to="/admin-login" className="transition hover:text-indigo-400">
-              <i className="fas fa-shield-alt mr-1"></i>
-              Admin
-            </Link>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 NyumbaSync. All rights reserved.</p>
           </div>
         </div>
       </footer>
     </div>
   );
-}
+};
 
 export default LandingPage;

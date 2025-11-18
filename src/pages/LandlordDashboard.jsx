@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import DashboardLayout from '../components/DashboardLayout';
 import StatCard from '../components/StatCard';
 import { useDashboardData } from '../hooks/useDashboardData';
 import apiService from '../api/api';
+import LoadingSpinner from '../components/LoadingSpinner';
 
-const LandlordDashboard = () => {
-  const { properties, maintenance, stats, loading, refresh } = useDashboardData('landlord');
+// Lazy load sub-pages
+const Properties = React.lazy(() => import('./Landlord/Properties'));
+const Tenants = React.lazy(() => import('./Landlord/Tenants'));
+const Finances = React.lazy(() => import('./Landlord/Finances'));
+
+const LandlordOverview = ({ properties, maintenance, stats, refresh }) => {
   const [showAddProperty, setShowAddProperty] = useState(false);
   const [propertyForm, setPropertyForm] = useState({
     address: '',
     units: 1,
     rent: ''
   });
-
-  const menuItems = [
-    { path: '/landlord-dashboard', label: 'Dashboard', icon: 'fas fa-tachometer-alt' },
-    { path: '/landlord-dashboard/properties', label: 'Properties', icon: 'fas fa-home' },
-    { path: '/landlord-dashboard/tenants', label: 'Tenants', icon: 'fas fa-users' },
-    { path: '/landlord-dashboard/finances', label: 'Finances', icon: 'fas fa-money-bill-wave' },
-    { path: '/landlord-dashboard/maintenance', label: 'Maintenance', icon: 'fas fa-tools' },
-    { path: '/landlord-dashboard/documents', label: 'Documents', icon: 'fas fa-file-contract' }
-  ];
 
   const handleAddProperty = async (e) => {
     e.preventDefault();
@@ -34,90 +31,78 @@ const LandlordDashboard = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <DashboardLayout role="landlord" menuItems={menuItems}>
-        <div className="flex items-center justify-center h-full">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        </div>
-      </DashboardLayout>
-    );
-  }
-
   return (
-    <DashboardLayout role="landlord" menuItems={menuItems}>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
-          <button
-            onClick={() => setShowAddProperty(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-          >
-            <i className="fas fa-plus mr-2"></i>Add Property
-          </button>
-        </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
+        <button
+          onClick={() => setShowAddProperty(true)}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          <i className="fas fa-plus mr-2"></i>Add Property
+        </button>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <StatCard
-            title="Monthly Income"
-            value={`KSh ${stats.totalIncome?.toLocaleString() || 0}`}
-            subtitle={`From ${stats.totalProperties || 0} properties`}
-            icon="fas fa-money-bill-wave"
-            color="green"
-          />
-          <StatCard
-            title="Vacancies"
-            value={stats.vacancies || 0}
-            subtitle={`${((stats.vacancies / stats.totalProperties) * 100 || 0).toFixed(0)}% vacancy rate`}
-            icon="fas fa-home"
-            color="yellow"
-          />
-          <StatCard
-            title="Maintenance"
-            value={`${stats.maintenanceRequests || 0} Requests`}
-            subtitle="Pending approval"
-            icon="fas fa-tools"
-            color="red"
-          />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard
+          title="Monthly Income"
+          value={`KSh ${stats.totalIncome?.toLocaleString() || 0}`}
+          subtitle={`From ${stats.totalProperties || 0} properties`}
+          icon="fas fa-money-bill-wave"
+          color="green"
+        />
+        <StatCard
+          title="Vacancies"
+          value={stats.vacancies || 0}
+          subtitle={`${((stats.vacancies / stats.totalProperties) * 100 || 0).toFixed(0)}% vacancy rate`}
+          icon="fas fa-home"
+          color="yellow"
+        />
+        <StatCard
+          title="Maintenance"
+          value={`${stats.maintenanceRequests || 0} Requests`}
+          subtitle="Pending approval"
+          icon="fas fa-tools"
+          color="red"
+        />
+      </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-semibold mb-4">Your Properties</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {properties.length > 0 ? (
-              properties.map((property) => (
-                <div key={property.id} className="border rounded-lg p-4 hover:shadow-md transition">
-                  <h4 className="font-semibold text-lg">{property.address}</h4>
-                  <div className="mt-2 space-y-1 text-sm text-gray-600">
-                    <p><i className="fas fa-door-open mr-2"></i>{property.units} Units</p>
-                    <p><i className="fas fa-chart-line mr-2"></i>Occupancy: {property.occupancy || 0}%</p>
-                    <p><i className="fas fa-money-bill mr-2"></i>Rent: KSh {property.rent?.toLocaleString()}</p>
-                  </div>
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-xl font-semibold mb-4">Your Properties</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {properties.length > 0 ? (
+            properties.map((property) => (
+              <div key={property.id} className="border rounded-lg p-4 hover:shadow-md transition">
+                <h4 className="font-semibold text-lg">{property.address}</h4>
+                <div className="mt-2 space-y-1 text-sm text-gray-600">
+                  <p><i className="fas fa-door-open mr-2"></i>{property.units} Units</p>
+                  <p><i className="fas fa-chart-line mr-2"></i>Occupancy: {property.occupancy || 0}%</p>
+                  <p><i className="fas fa-money-bill mr-2"></i>Rent: KSh {property.rent?.toLocaleString()}</p>
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-500 col-span-2">No properties yet. Add your first property!</p>
-            )}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-semibold mb-4">Recent Activity</h3>
-          <div className="space-y-3">
-            {maintenance.slice(0, 5).map((item, index) => (
-              <div key={index} className="flex items-center space-x-4 p-3 border-l-4 border-blue-500 bg-gray-50">
-                <i className="fas fa-tools text-blue-600"></i>
-                <div className="flex-1">
-                  <p className="font-medium">{item.description || 'Maintenance request'}</p>
-                  <p className="text-sm text-gray-500">{item.property || 'Property'}</p>
-                </div>
-                <span className="text-sm text-gray-400">{item.time || 'Recently'}</span>
               </div>
-            ))}
-            {maintenance.length === 0 && (
-              <p className="text-gray-500">No recent activity</p>
-            )}
-          </div>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-2">No properties yet. Add your first property!</p>
+          )}
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-xl font-semibold mb-4">Recent Activity</h3>
+        <div className="space-y-3">
+          {maintenance.slice(0, 5).map((item, index) => (
+            <div key={index} className="flex items-center space-x-4 p-3 border-l-4 border-blue-500 bg-gray-50">
+              <i className="fas fa-tools text-blue-600"></i>
+              <div className="flex-1">
+                <p className="font-medium">{item.description || 'Maintenance request'}</p>
+                <p className="text-sm text-gray-500">{item.property || 'Property'}</p>
+              </div>
+              <span className="text-sm text-gray-400">{item.time || 'Recently'}</span>
+            </div>
+          ))}
+          {maintenance.length === 0 && (
+            <p className="text-gray-500">No recent activity</p>
+          )}
         </div>
       </div>
 
@@ -175,6 +160,40 @@ const LandlordDashboard = () => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const LandlordDashboard = () => {
+  const { properties, maintenance, stats, loading, refresh } = useDashboardData('landlord');
+
+  const menuItems = [
+    { path: '/landlord-dashboard', label: 'Dashboard', icon: 'fas fa-tachometer-alt' },
+    { path: '/landlord-dashboard/properties', label: 'Properties', icon: 'fas fa-home' },
+    { path: '/landlord-dashboard/tenants', label: 'Tenants', icon: 'fas fa-users' },
+    { path: '/landlord-dashboard/finances', label: 'Finances', icon: 'fas fa-money-bill-wave' },
+    { path: '/landlord-dashboard/maintenance', label: 'Maintenance', icon: 'fas fa-tools' },
+    { path: '/landlord-dashboard/documents', label: 'Documents', icon: 'fas fa-file-contract' }
+  ];
+
+  if (loading) {
+    return (
+      <DashboardLayout role="landlord" menuItems={menuItems}>
+        <LoadingSpinner fullScreen />
+      </DashboardLayout>
+    );
+  }
+
+  return (
+    <DashboardLayout role="landlord" menuItems={menuItems}>
+      <React.Suspense fallback={<LoadingSpinner fullScreen />}>
+        <Routes>
+          <Route index element={<LandlordOverview properties={properties} maintenance={maintenance} stats={stats} refresh={refresh} />} />
+          <Route path="properties" element={<Properties />} />
+          <Route path="tenants" element={<Tenants />} />
+          <Route path="finances" element={<Finances />} />
+        </Routes>
+      </React.Suspense>
     </DashboardLayout>
   );
 };
