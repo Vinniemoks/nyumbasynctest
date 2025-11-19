@@ -23,6 +23,20 @@ class ApiService {
     return this.token || localStorage.getItem('authToken');
   }
 
+  // Set refresh token
+  setRefreshToken(token) {
+    if (token) {
+      localStorage.setItem('refreshToken', token);
+    } else {
+      localStorage.removeItem('refreshToken');
+    }
+  }
+
+  // Get refresh token
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
+  }
+
   // Generic request method
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
@@ -167,6 +181,13 @@ class ApiService {
     }
     await this.post('/auth/logout');
     this.setAuthToken(null);
+  }
+
+  clearAuth() {
+    this.setAuthToken(null);
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userData');
   }
 
   async refreshToken() {
