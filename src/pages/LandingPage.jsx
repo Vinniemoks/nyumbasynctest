@@ -4,9 +4,16 @@ import { useAuth } from '../context/AuthContext';
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
-  // Removed auto-redirect - let users stay on landing page even if logged in
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   const features = [
     {
@@ -67,26 +74,45 @@ const LandingPage = () => {
               <span className="text-2xl font-semibold">NyumbaSync</span>
             </div>
             <div className="flex space-x-4">
-              <button
-                onClick={() => navigate('/admin-login')}
-                className="px-4 py-2 text-amber-400 hover:text-amber-300 border border-amber-400/50 hover:border-amber-300 rounded-lg transition flex items-center gap-2"
-                title="Admin Login"
-              >
-                <i className="fas fa-shield-alt"></i>
-                Admin
-              </button>
-              <button
-                onClick={() => navigate('/login')}
-                className="px-4 py-2 text-white/80 hover:text-white transition"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => navigate('/signup')}
-                className="px-6 py-2 bg-indigo-500 hover:bg-indigo-400 text-white rounded-lg shadow-lg shadow-indigo-500/30 transition"
-              >
-                Get Started
-              </button>
+              {user ? (
+                <>
+                  <button
+                    onClick={() => navigate(`/${user.role}-dashboard`)}
+                    className="px-4 py-2 text-white/80 hover:text-white transition"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="px-6 py-2 bg-red-500 hover:bg-red-400 text-white rounded-lg shadow-lg shadow-red-500/30 transition"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => navigate('/admin-login')}
+                    className="px-4 py-2 text-amber-400 hover:text-amber-300 border border-amber-400/50 hover:border-amber-300 rounded-lg transition flex items-center gap-2"
+                    title="Admin Login"
+                  >
+                    <i className="fas fa-shield-alt"></i>
+                    Admin
+                  </button>
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="px-4 py-2 text-white/80 hover:text-white transition"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => navigate('/signup')}
+                    className="px-6 py-2 bg-indigo-500 hover:bg-indigo-400 text-white rounded-lg shadow-lg shadow-indigo-500/30 transition"
+                  >
+                    Get Started
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -94,28 +120,38 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Modern Property Management
-            <span className="block text-indigo-400 mt-2">Made Simple</span>
-          </h1>
-          <p className="text-xl text-white/70 mb-8">
-            Streamline your property management with our all-in-one platform. 
-            Manage properties, collect rent, track maintenance, and more.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <button
-              onClick={() => navigate('/signup')}
-              className="px-8 py-4 bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-semibold rounded-lg shadow-lg shadow-indigo-500/30 transition"
-            >
-              Start Free Trial
-            </button>
-            <button
-              onClick={() => navigate('/login')}
-              className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white text-lg font-semibold rounded-lg border border-white/10 transition"
-            >
-              Sign In
-            </button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-5xl font-bold mb-6">
+              Modern Property Management
+              <span className="block text-indigo-400 mt-2">Made Simple</span>
+            </h1>
+            <p className="text-xl text-white/70 mb-8">
+              Streamline your property management with our all-in-one platform. 
+              Manage properties, collect rent, track maintenance, and more.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={() => navigate('/signup')}
+                className="px-8 py-4 bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-semibold rounded-lg shadow-lg shadow-indigo-500/30 transition"
+              >
+                Start Free Trial
+              </button>
+              <button
+                onClick={() => navigate('/login')}
+                className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white text-lg font-semibold rounded-lg border border-white/10 transition"
+              >
+                Watch Demo
+              </button>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="rounded-2xl border border-white/10 bg-slate-900/40 backdrop-blur p-8 aspect-video flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-6xl mb-4">🏢</div>
+                <p className="text-white/60">Property Management Dashboard</p>
+              </div>
+            </div>
           </div>
         </div>
 
