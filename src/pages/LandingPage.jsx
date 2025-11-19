@@ -6,19 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  React.useEffect(() => {
-    if (user) {
-      const roleRoutes = {
-        landlord: '/landlord-dashboard',
-        manager: '/manager-dashboard',
-        tenant: '/tenant-dashboard',
-        agent: '/agent-dashboard',
-        vendor: '/vendor-dashboard',
-        admin: '/admin-dashboard'
-      };
-      navigate(roleRoutes[user.role] || '/');
-    }
-  }, [user, navigate]);
+  // Removed auto-redirect - let users stay on landing page even if logged in
 
   const features = [
     {
@@ -106,37 +94,28 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-5xl font-bold mb-6">
-              Modern Property Management
-              <span className="block text-indigo-400 mt-2">Made Simple</span>
-            </h1>
-            <p className="text-xl text-white/70 mb-8">
-              Streamline your property management with our all-in-one platform. 
-              Manage properties, collect rent, track maintenance, and more.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => navigate('/signup')}
-                className="px-8 py-4 bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-semibold rounded-lg shadow-lg shadow-indigo-500/30 transition"
-              >
-                Start Free Trial
-              </button>
-              <button
-                onClick={() => navigate('/login')}
-                className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white text-lg font-semibold rounded-lg border border-white/10 transition"
-              >
-                Watch Demo
-              </button>
-            </div>
-          </div>
-          <div className="relative">
-            <img 
-              src="/images/hero-image.jpg" 
-              alt="Property Management Dashboard" 
-              className="rounded-2xl shadow-2xl border border-white/10"
-            />
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Modern Property Management
+            <span className="block text-indigo-400 mt-2">Made Simple</span>
+          </h1>
+          <p className="text-xl text-white/70 mb-8">
+            Streamline your property management with our all-in-one platform. 
+            Manage properties, collect rent, track maintenance, and more.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <button
+              onClick={() => navigate('/signup')}
+              className="px-8 py-4 bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-semibold rounded-lg shadow-lg shadow-indigo-500/30 transition"
+            >
+              Start Free Trial
+            </button>
+            <button
+              onClick={() => navigate('/login')}
+              className="px-8 py-4 bg-slate-800/50 hover:bg-slate-800 text-white text-lg font-semibold rounded-lg border border-white/10 transition"
+            >
+              Sign In
+            </button>
           </div>
         </div>
 
