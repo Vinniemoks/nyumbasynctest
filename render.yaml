@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: nyumbasync-backend
+    runtime: node
+    rootDir: nyumbasync_backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    region: oregon
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLUSTER_MODE
+        value: "false"
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: BCRYPT_ROUNDS
+        value: "12"
+      - key: LOG_LEVEL
+        value: info
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: RATE_LIMIT_WINDOW
+        value: "900000"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "300"
+      - key: MAX_FILE_SIZE
+        value: "10485760"
+      - key: UPLOAD_DIR
+        value: ./uploads
